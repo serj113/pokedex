@@ -1,15 +1,15 @@
 plugins {
-  id("com.android.library")
-  id("org.jetbrains.kotlin.android")
+  id(libs.plugins.android.library.get().pluginId)
+  id(libs.plugins.kotlin.android.get().pluginId)
+  id(libs.plugins.ksp.get().pluginId) version libs.versions.ksp.get()
 }
 
 android {
   namespace = "com.serj113.pokedex.core.model"
-  compileSdk = 33
+  compileSdk = Configuration.compileSdk
 
   defaultConfig {
-    minSdk = 23
-    targetSdk = 33
+    minSdk = Configuration.minSdk
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
@@ -31,11 +31,16 @@ android {
 }
 
 dependencies {
+  implementation(libs.androidx.core)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.material)
 
-  implementation("androidx.core:core-ktx:1.8.0")
-  implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("com.google.android.material:material:1.9.0")
-  testImplementation("junit:junit:4.13.2")
-  androidTestImplementation("androidx.test.ext:junit:1.1.5")
-  androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+  // moshi
+  implementation(libs.moshi)
+  ksp(libs.moshi.codegen)
+
+  // test
+  testImplementation(libs.junit)
+  androidTestImplementation(libs.junit.ext)
+  androidTestImplementation(libs.espresso.core)
 }
