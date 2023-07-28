@@ -6,13 +6,14 @@ plugins {
 }
 
 android {
-  namespace = "com.serj113.pokedex.core.data"
+  namespace = "com.serj113.core.domain"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
     minSdk = Configuration.minSdk
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles("consumer-rules.pro")
   }
 
   buildTypes {
@@ -31,16 +32,8 @@ android {
 }
 
 dependencies {
-  implementation(project(":core_domain"))
   implementation(project(":core_model"))
-  implementation(libs.androidx.core)
-  implementation(libs.androidx.appcompat)
-  implementation(libs.material)
-
-  // retrofit
-  implementation(libs.retrofit)
-  implementation(libs.retrofit.moshi)
-  implementation(libs.okhttp)
+  implementation(libs.kotlin.stdlib)
 
   // hilt
   implementation(libs.hilt)
@@ -48,6 +41,4 @@ dependencies {
 
   // test
   testImplementation(libs.junit)
-  androidTestImplementation(libs.junit.ext)
-  androidTestImplementation(libs.espresso.core)
 }

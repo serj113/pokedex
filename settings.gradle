@@ -18,3 +18,5 @@ include ':core_data'
 project(':core_data').projectDir = new File("./core/core_data")
 include ':core_model'
 project(':core_model').projectDir = new File("./core/core_model")
+include ':core_domain'
+project(':core_domain').projectDir = new File("./core/core_domain")
