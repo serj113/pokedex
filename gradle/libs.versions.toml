@@ -4,11 +4,14 @@ kotlin = "1.8.0"
 ksp = "1.8.10-1.0.9"
 hilt = "2.47"
 androidx-kotlin = "1.8.0"
+
+# view
 compose = "2022.10.00"
 lifecycle = "2.3.1"
 activity = "1.6.1"
 appcompat = "1.6.1"
 material = "1.9.0"
+recylerview = "1.2.0"
 
 retrofit = "2.9.0"
 okhttp = "4.10.0"
@@ -39,6 +42,9 @@ androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx.kot
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+
+# view
+recylerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recylerview" }
 
 # compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose" }
