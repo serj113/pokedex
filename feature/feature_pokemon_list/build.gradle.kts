@@ -45,7 +45,11 @@ dependencies {
   implementation(libs.kotlin.bom)
   implementation(libs.androidx.core)
   implementation(libs.androidx.lifecycle)
+//  implementation(libs.androidx.runtime)
+//  implementation(libs.androidx.lifecycle.extensions)
+//  implementation(libs.androidx.viewmodel)
   implementation(libs.androidx.activity)
+  implementation(libs.fragmentktx)
 
   // compose
   implementation(platform(libs.compose.bom))
@@ -59,9 +63,9 @@ dependencies {
 
   // hilt
   implementation(libs.hilt)
-  implementation("androidx.legacy:legacy-support-v4:1.0.0")
-  implementation("androidx.recyclerview:recyclerview:1.3.0")
   kapt(libs.hilt.kapt)
+  implementation(libs.hilt.androidx)
+  kapt(libs.hilt.androidx.kapt)
 
   // test
   testImplementation(libs.junit)
