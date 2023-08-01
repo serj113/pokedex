@@ -3,6 +3,7 @@ plugins {
     id(libs.plugins.kotlin.android.get().pluginId)
     id(libs.plugins.kotlin.kapt.get().pluginId)
     id(libs.plugins.hilt.get().pluginId)
+    id(libs.plugins.navigation.safeargs.get().pluginId)
 }
 
 android {
@@ -59,6 +60,11 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.activity)
+
+    // navigation
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.compose)
+    implementation(libs.navigation.ui)
 
     // compose
     implementation(platform(libs.compose.bom))

@@ -14,6 +14,7 @@ appcompat = "1.6.1"
 material = "1.9.0"
 recylerview = "1.2.0"
 fragmentktx = "1.6.1"
+navigation = "2.6.0"
 
 retrofit = "2.9.0"
 okhttp = "4.10.0"
@@ -33,6 +34,8 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+navigation = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin" }
 
 [libraries]
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "androidx.kotlin" }
@@ -51,6 +54,11 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 # view
 recylerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recylerview" }
 fragmentktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentktx" }
+
+# view
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 
 # compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose" }
