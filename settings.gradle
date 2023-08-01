@@ -22,3 +22,5 @@ include ':core_domain'
 project(':core_domain').projectDir = new File("./core/core_domain")
 include ':feature_pokemon_list'
 project(':feature_pokemon_list').projectDir = new File("./feature/feature_pokemon_list")
+include ':common_navigation'
+project(':common_navigation').projectDir = new File("./common/common_navigation")

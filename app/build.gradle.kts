@@ -50,6 +50,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":core_domain"))
+    implementation(project(":core_data"))
+    implementation(project(":core_model"))
+    implementation(project(":feature_pokemon_list"))
+
     implementation(libs.kotlin.bom)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle)
