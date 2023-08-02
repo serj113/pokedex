@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemonlist.ui
+package com.serj113.pokedex.feature.pokemonlist.ui
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -9,8 +9,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.serj113.feature.pokemonlist.data.PokemonList
 import com.serj113.pokedex.core.model.DataItem
+import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

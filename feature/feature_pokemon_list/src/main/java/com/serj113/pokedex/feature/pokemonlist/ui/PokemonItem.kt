@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemonlist.ui
+package com.serj113.pokedex.feature.pokemonlist.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

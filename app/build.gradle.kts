@@ -54,12 +54,15 @@ dependencies {
     implementation(project(":core_domain"))
     implementation(project(":core_data"))
     implementation(project(":core_model"))
+    implementation(project(":common_navigation"))
     implementation(project(":feature_pokemon_list"))
 
     implementation(libs.kotlin.bom)
     implementation(libs.androidx.core)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.activity)
+    implementation(libs.constraintlayout)
 
     // navigation
     implementation(libs.navigation.fragment)

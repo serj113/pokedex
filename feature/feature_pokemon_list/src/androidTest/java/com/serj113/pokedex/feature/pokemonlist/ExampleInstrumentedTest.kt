@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemonlist
+package com.serj113.pokedex.feature.pokemonlist
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
