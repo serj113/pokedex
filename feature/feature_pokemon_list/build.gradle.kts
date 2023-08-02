@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-  namespace = "com.serj113.feature.pokemonlist"
+  namespace = "com.serj113.pokedex.feature.pokemonlist"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
@@ -64,8 +64,6 @@ dependencies {
   // hilt
   implementation(libs.hilt)
   kapt(libs.hilt.kapt)
-  implementation(libs.hilt.androidx)
-  kapt(libs.hilt.androidx.kapt)
 
   // test
   testImplementation(libs.junit)

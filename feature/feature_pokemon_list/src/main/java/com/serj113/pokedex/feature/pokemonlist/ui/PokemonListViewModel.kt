@@ -1,10 +1,10 @@
-package com.serj113.feature.pokemonlist.ui
+package com.serj113.pokedex.feature.pokemonlist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serj113.core.domain.usecase.GetPokemonListUseCase
-import com.serj113.feature.pokemonlist.data.PokemonList
 import com.serj113.pokedex.core.model.ApiResult
+import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/common_navigation_graph"
+    app:startDestination="@id/pokemon_list">
+
+    <fragment
+        android:id="@+id/pokemon_list"
+        android:name="com.serj113.pokedex.feature.pokemonlist.ui.PokemonListFragment"
+        android:label="pokemon_list" />
+</navigation>

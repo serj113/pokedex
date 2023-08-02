@@ -3,6 +3,7 @@ plugins {
     id(libs.plugins.kotlin.android.get().pluginId)
     id(libs.plugins.kotlin.kapt.get().pluginId)
     id(libs.plugins.hilt.get().pluginId)
+    id(libs.plugins.navigation.safeargs.get().pluginId)
 }
 
 android {
@@ -50,10 +51,23 @@ android {
 }
 
 dependencies {
+    implementation(project(":core_domain"))
+    implementation(project(":core_data"))
+    implementation(project(":core_model"))
+    implementation(project(":common_navigation"))
+    implementation(project(":feature_pokemon_list"))
+
     implementation(libs.kotlin.bom)
     implementation(libs.androidx.core)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.activity)
+    implementation(libs.constraintlayout)
+
+    // navigation
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.compose)
+    implementation(libs.navigation.ui)
 
     // compose
     implementation(platform(libs.compose.bom))

@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemonlist
+package com.serj113.pokedex.feature.pokemonlist.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.serj113.feature.pokemonlist.ui.PokemonListScreen
-import com.serj113.feature.pokemonlist.ui.PokemonListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

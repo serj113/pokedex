@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemonlist.data
+package com.serj113.pokedex.feature.pokemonlist.data
 
 import com.serj113.pokedex.core.model.DataItem
 

@@ -16,6 +16,12 @@ class ServiceModule {
 
   @Provides
   @Singleton
+  internal fun provideOkHttpClient(): OkHttpClient {
+    return OkHttpClient()
+  }
+
+  @Provides
+  @Singleton
   internal fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .baseUrl("https://pokeapi.co/api/v2/")
