@@ -15,8 +15,8 @@ interface PokemonService {
 
   @GET(POKEMON_LIST)
   suspend fun getPokemonList(
-    @Query("offset") offset: Int,
-    @Query("limit") limit: Int,
+    @Query("offset") offset: Int? = null,
+    @Query("limit") limit: Int? = null,
   ): Response<PokemonListResponse>
 
   @GET(POKEMON_DETAIL)
