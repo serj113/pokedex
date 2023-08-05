@@ -50,6 +50,7 @@ dependencies {
 //  implementation(libs.androidx.viewmodel)
   implementation(libs.androidx.activity)
   implementation(libs.fragmentktx)
+  implementation(libs.coil)
 
   // compose
   implementation(platform(libs.compose.bom))
