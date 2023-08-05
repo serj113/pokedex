@@ -18,7 +18,7 @@ internal fun PokemonListScreen(viewState: PokemonList.ViewState) {
   MaterialTheme {
     Scaffold { _ ->
       LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 128.dp)
+        columns = GridCells.Fixed(2)
       ) {
         items(viewState.pokemonList) { pokemon ->
           PokemonItem(pokemon = pokemon)
