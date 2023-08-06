@@ -1,4 +1,4 @@
-package com.serj113.feature.pokemondetaill
+package com.serj113.feature.pokemondetail
 
 import org.junit.Test
 

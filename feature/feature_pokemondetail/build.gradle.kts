@@ -1,15 +1,16 @@
 plugins {
-  id("com.android.library")
-  id("org.jetbrains.kotlin.android")
+  id(libs.plugins.android.library.get().pluginId)
+  id(libs.plugins.kotlin.android.get().pluginId)
+  id(libs.plugins.kotlin.kapt.get().pluginId)
+  id(libs.plugins.hilt.get().pluginId)
 }
 
 android {
   namespace = "com.serj113.feature.pokemondetail"
-  compileSdk = 33
+  compileSdk = Configuration.compileSdk
 
   defaultConfig {
-    minSdk = 23
-    targetSdk = 33
+    minSdk = Configuration.minSdk
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
@@ -22,20 +23,50 @@ android {
     }
   }
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "17"
+  }
+  buildFeatures {
+    compose = true
+    viewBinding = true
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.1"
   }
 }
 
 dependencies {
+  implementation(project(":core_model"))
+  implementation(project(":core_domain"))
 
-  implementation("androidx.core:core-ktx:1.8.0")
-  implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("com.google.android.material:material:1.9.0")
-  testImplementation("junit:junit:4.13.2")
-  androidTestImplementation("androidx.test.ext:junit:1.1.5")
-  androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+  implementation(libs.kotlin.bom)
+  implementation(libs.androidx.core)
+  implementation(libs.androidx.lifecycle)
+  implementation(libs.androidx.activity)
+  implementation(libs.fragmentktx)
+  implementation(libs.coil)
+
+  // compose
+  implementation(platform(libs.compose.bom))
+  implementation(libs.compose.ui)
+  implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.tooling)
+  implementation(libs.compose.material)
+
+  // debug
+  debugImplementation(libs.debug.compose.ui.tooling)
+
+  // hilt
+  implementation(libs.hilt)
+  kapt(libs.hilt.kapt)
+
+  // test
+  testImplementation(libs.junit)
+  androidTestImplementation(libs.junit.ext)
+  androidTestImplementation(libs.espresso.core)
+  androidTestImplementation(libs.atest.compose.bom)
+  androidTestImplementation(libs.atest.compose.junit)
 }
