@@ -20,7 +20,9 @@ include ':core_model'
 project(':core_model').projectDir = new File("./core/core_model")
 include ':core_domain'
 project(':core_domain').projectDir = new File("./core/core_domain")
-include ':feature_pokemon_list'
-project(':feature_pokemon_list').projectDir = new File("./feature/feature_pokemon_list")
 include ':common_navigation'
 project(':common_navigation').projectDir = new File("./common/common_navigation")
+include ':feature_pokemon_list'
+project(':feature_pokemon_list').projectDir = new File("./feature/feature_pokemon_list")
+include ':feature_pokemondetail'
+project(':feature_pokemondetail').projectDir = new File("./feature/feature_pokemondetail")
