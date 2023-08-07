@@ -4,6 +4,7 @@ kotlin = "1.8.0"
 ksp = "1.8.10-1.0.9"
 hilt = "2.47"
 hilt-androidx = "1.0.0"
+hilt-navigation-compose = "1.0.0"
 androidx-kotlin = "1.8.0"
 
 # view
@@ -88,6 +89,7 @@ moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.re
 # hilt
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-kapt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt.navigation.compose" }
 
 # test
 junit = { module = "junit:junit", version.ref = "junit" }
