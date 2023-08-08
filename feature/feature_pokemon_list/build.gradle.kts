@@ -51,6 +51,7 @@ dependencies {
   implementation(libs.androidx.activity)
   implementation(libs.fragmentktx)
   implementation(libs.coil)
+  implementation(libs.hilt.navigation.compose)
 
   // compose
   implementation(platform(libs.compose.bom))
