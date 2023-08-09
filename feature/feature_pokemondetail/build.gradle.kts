@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-  namespace = "com.serj113.feature.pokemondetail"
+  namespace = "com.serj113.pokedex.feature.pokemondetail"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
