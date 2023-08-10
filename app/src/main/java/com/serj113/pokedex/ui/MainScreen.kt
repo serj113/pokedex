@@ -6,10 +6,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.serj113.pokedex.common.navigation.Route
+import com.serj113.pokedex.feature.pokemondetail.ui.PokemonDetailFragment
 import com.serj113.pokedex.feature.pokemonlist.ui.PokemonListFragment
 
 @Composable
@@ -22,6 +25,14 @@ fun MainScreen() {
     ) {
       composable(route = Route.List.path) {
         PokemonListFragment()
+      }
+      composable(
+        route = Route.Detail.path,
+        arguments = listOf(
+          navArgument("pokemonId") { type = NavType.IntType },
+        ),
+      ) {
+        PokemonDetailFragment()
       }
     }
   }

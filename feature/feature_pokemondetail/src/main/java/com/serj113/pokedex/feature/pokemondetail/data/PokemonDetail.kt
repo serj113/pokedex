@@ -9,4 +9,8 @@ object PokemonDetail {
     val pokemonDataItem: DataItem = DataItem(),
     val pokemonDetail: PokemonDetailResponse = PokemonDetailResponse(),
   )
+
+  sealed class Action {
+    object InnitPage : Action()
+  }
 }
