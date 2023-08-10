@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-  namespace = "com.serj113.feature.pokemondetail"
+  namespace = "com.serj113.pokedex.feature.pokemondetail"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
@@ -41,6 +41,8 @@ android {
 dependencies {
   implementation(project(":core_model"))
   implementation(project(":core_domain"))
+  implementation(project(":common_presentation"))
+  implementation(project(":common_navigation"))
 
   implementation(libs.kotlin.bom)
   implementation(libs.androidx.core)
@@ -48,6 +50,7 @@ dependencies {
   implementation(libs.androidx.activity)
   implementation(libs.fragmentktx)
   implementation(libs.coil)
+  implementation(libs.hilt.navigation.compose)
 
   // compose
   implementation(platform(libs.compose.bom))

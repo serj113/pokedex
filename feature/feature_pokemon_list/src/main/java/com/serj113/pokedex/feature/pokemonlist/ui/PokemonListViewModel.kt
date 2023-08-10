@@ -22,14 +22,15 @@ class PokemonListViewModel @Inject constructor(
 
   init {
     viewModelScope.launch {
-      when(val result = useCase()) {
+      when (val result = useCase()) {
         is ApiResult.Success -> {
-          _viewState.update {viewState ->
+          _viewState.update { viewState ->
             viewState.copy(
               pokemonList = result.value.results
             )
           }
         }
+
         is ApiResult.Error -> {
 
         }
