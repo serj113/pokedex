@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":core_data"))
     implementation(project(":core_model"))
     implementation(project(":common_navigation"))
+    implementation(project(":common_presentation"))
     implementation(project(":feature_pokemon_list"))
 
     implementation(libs.kotlin.bom)

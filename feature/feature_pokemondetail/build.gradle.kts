@@ -41,6 +41,7 @@ android {
 dependencies {
   implementation(project(":core_model"))
   implementation(project(":core_domain"))
+  implementation(project(":common_presentation"))
 
   implementation(libs.kotlin.bom)
   implementation(libs.androidx.core)
