@@ -9,4 +9,12 @@ object PokemonList {
     val pokemonList: List<DataItem> = emptyList(),
     val hasNext: Boolean = false,
   )
+
+  sealed class Event {
+    data class GoToDetail(val pokemonId: Int) : Event()
+  }
+
+  sealed class Action {
+    object OnClickItem : Action()
+  }
 }
