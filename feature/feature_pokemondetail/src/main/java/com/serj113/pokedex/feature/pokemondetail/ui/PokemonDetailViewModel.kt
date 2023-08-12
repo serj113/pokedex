@@ -8,8 +8,12 @@ import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,12 +22,22 @@ import javax.inject.Inject
 class PokemonDetailViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val useCase: GetPokemonDetailUseCase,
-) : ViewModel() {
+) : ViewModel(), IPokemonDetailViewModel {
 
   private val _viewState = MutableStateFlow(PokemonDetail.ViewState())
   val viewStateFlow: StateFlow<PokemonDetail.ViewState> = _viewState
 
-  fun onAction(action: PokemonDetail.Action) {
+  override val uiAction = Channel<PokemonDetail.Action>(Channel.BUFFERED)
+
+  init {
+    uiAction.receiveAsFlow()
+      .onEach { action ->
+        onUiAction(action)
+      }
+      .launchIn(viewModelScope)
+  }
+
+  private fun onUiAction(action: PokemonDetail.Action) {
     when (action) {
       PokemonDetail.Action.InnitPage -> getPokemonDetail()
     }

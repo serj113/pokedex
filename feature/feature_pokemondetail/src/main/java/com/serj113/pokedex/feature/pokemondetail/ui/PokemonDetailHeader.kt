@@ -36,8 +36,7 @@ internal fun PokemonDetailHeader(viewState: PokemonDetail.ViewState) {
         model = SpriteImage.getUrl(viewState.pokemonId),
         contentDescription = null,
         modifier = Modifier
-          .fillMaxWidth()
-          .weight(1f),
+          .fillMaxWidth(),
       )
     }
   }

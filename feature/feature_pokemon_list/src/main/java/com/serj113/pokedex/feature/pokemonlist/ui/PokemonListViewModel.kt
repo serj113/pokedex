@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
   private val useCase: GetPokemonListUseCase,
-) : ViewModel() {
+) : ViewModel(), IPokemonListViewModel {
 
   private val _viewState = MutableStateFlow(PokemonList.ViewState())
   val viewStateFlow: StateFlow<PokemonList.ViewState> = _viewState
@@ -27,33 +27,25 @@ class PokemonListViewModel @Inject constructor(
   private val _event = Channel<PokemonList.Event>(Channel.BUFFERED)
   val eventFlow = _event.receiveAsFlow()
 
-  val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
+  override val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
 
   init {
-    viewModelScope.launch {
-      uiAction.receiveAsFlow()
-        .onEach {
-
-        }
-        .launchIn(viewModelScope)
-      when (val result = useCase()) {
-        is ApiResult.Success -> {
-          _viewState.update { viewState ->
-            viewState.copy(
-              pokemonList = result.value.results
-            )
-          }
-        }
-
-        is ApiResult.Error -> {
-
-        }
+    uiAction.receiveAsFlow()
+      .onEach { action ->
+        onUiAction(action)
       }
-    }
+      .launchIn(viewModelScope)
   }
 
   private fun onUiAction(action: PokemonList.Action) {
-    
+    when (action) {
+      is PokemonList.Action.OnClickItem -> {
+        _event.trySend(PokemonList.Event.GoToDetail(action.pokemonId))
+      }
+      PokemonList.Action.InitPage -> {
+        fetchPokemonList()
+      }
+    }
   }
 
   private fun fetchPokemonList() = viewModelScope.launch {

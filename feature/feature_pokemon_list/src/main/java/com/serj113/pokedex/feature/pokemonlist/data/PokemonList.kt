@@ -15,6 +15,7 @@ object PokemonList {
   }
 
   sealed class Action {
-    object OnClickItem : Action()
+    data class OnClickItem(val pokemonId: Int) : Action()
+    object InitPage : Action()
   }
 }
