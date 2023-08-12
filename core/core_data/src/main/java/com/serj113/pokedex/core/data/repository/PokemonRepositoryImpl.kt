@@ -1,6 +1,6 @@
 package com.serj113.pokedex.core.data.repository
 
-import com.serj113.core.domain.repository.PokemonRepository
+import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse

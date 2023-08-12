@@ -3,7 +3,7 @@ package com.serj113.pokedex.feature.pokemondetail.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.serj113.core.domain.usecase.GetPokemonDetailUseCase
+import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
