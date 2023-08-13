@@ -4,5 +4,5 @@ import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonListResponse
 
 interface GetPokemonListUseCase {
-  suspend operator fun invoke(): ApiResult<PokemonListResponse>
+  suspend operator fun invoke(offset: Int?, limit: Int?): ApiResult<PokemonListResponse>
 }

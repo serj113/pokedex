@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetPokemonListUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
 ) : GetPokemonListUseCase {
-  override suspend fun invoke(): ApiResult<PokemonListResponse> {
-    return pokemonRepository.fetchPokemonList()
+  override suspend fun invoke(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
+    return pokemonRepository.fetchPokemonList(offset, limit)
   }
 }

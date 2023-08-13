@@ -12,9 +12,9 @@ import javax.inject.Inject
 class PokemonRepositoryImpl @Inject constructor(
   private val service: PokemonService,
 ) : PokemonRepository {
-  override suspend fun fetchPokemonList(): ApiResult<PokemonListResponse> {
+  override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
     return try {
-      val response = service.getPokemonList()
+      val response = service.getPokemonList(offset, limit)
       val body = response.body()
       if (body != null && response.isSuccessful) {
         ApiResult.Success(body)
