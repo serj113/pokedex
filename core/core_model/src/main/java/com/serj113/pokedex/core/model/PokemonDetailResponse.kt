@@ -20,7 +20,7 @@ data class PokemonDetailResponse(
   @field:Json(name = "is_default")
   val isDefault: Boolean = false,
   @field:Json(name = "location_area_encounters")
-  val locationAreaEncounters: Boolean = false,
+  val locationAreaEncounters: String = "",
   @field:Json(name = "species")
   val species: DataItem = DataItem(),
   @field:Json(name = "stats")

@@ -24,7 +24,7 @@ fun MainScreen() {
       startDestination = Route.List.path,
     ) {
       composable(route = Route.List.path) {
-        PokemonListFragment()
+        PokemonListFragment(navController)
       }
       composable(
         route = Route.Detail.path,

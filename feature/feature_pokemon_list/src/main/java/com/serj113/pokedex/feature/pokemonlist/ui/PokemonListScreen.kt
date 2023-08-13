@@ -11,17 +11,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
+import kotlinx.coroutines.channels.Channel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PokemonListScreen(viewState: PokemonList.ViewState) {
+internal fun PokemonListScreen(viewState: PokemonList.ViewState, viewModel: IPokemonListViewModel) {
   MaterialTheme {
     Scaffold { _ ->
       LazyVerticalGrid(
         columns = GridCells.Fixed(2)
       ) {
         items(viewState.pokemonList) { pokemon ->
-          PokemonItem(pokemon = pokemon)
+          PokemonItem(pokemon = pokemon, viewModel = viewModel)
         }
       }
     }
@@ -38,7 +39,11 @@ internal fun PreviewPokemonListScreen() {
         DataItem("Bulbasaur", "Link"),
         DataItem("Charmender", "Link"),
         DataItem("Squirturtle", "Link"),
-      )
-    )
+      ),
+    ),
+    object : IPokemonListViewModel {
+      override val uiAction: Channel<PokemonList.Action>
+        get() = Channel(Channel.BUFFERED)
+    }
   )
 }

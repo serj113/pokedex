@@ -9,7 +9,7 @@ import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 @Composable
 fun PokemonDetailFragment() {
   val viewModel: PokemonDetailViewModel = hiltViewModel()
-  viewModel.onAction(PokemonDetail.Action.InnitPage)
   val viewState by viewModel.viewStateFlow.collectAsState()
+  viewModel.uiAction.trySend(PokemonDetail.Action.InnitPage)
   PokemonDetailScreen(viewState = viewState)
 }
