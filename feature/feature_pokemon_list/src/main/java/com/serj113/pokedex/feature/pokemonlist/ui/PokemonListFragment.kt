@@ -22,6 +22,6 @@ fun PokemonListFragment(navController: NavHostController) {
       }
     }
   }
-  viewModel.uiAction.trySend(PokemonList.Action.InitPage)
+  viewModel.uiAction.trySend(PokemonList.Action.FetchNextPage)
   PokemonListScreen(viewState = viewState, viewModel = viewModel)
 }

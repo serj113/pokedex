@@ -7,6 +7,7 @@ object PokemonList {
   data class ViewState(
     val count: Int = 0,
     val pokemonList: List<DataItem> = emptyList(),
+    val page: Int = 1,
     val hasNext: Boolean = false,
   )
 
@@ -16,6 +17,6 @@ object PokemonList {
 
   sealed class Action {
     data class OnClickItem(val pokemonId: Int) : Action()
-    object InitPage : Action()
+    object FetchNextPage : Action()
   }
 }

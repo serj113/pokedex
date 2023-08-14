@@ -3,10 +3,12 @@ package com.serj113.pokedex.feature.pokemonlist.ui
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.serj113.pokedex.core.model.DataItem
@@ -18,13 +20,22 @@ import kotlinx.coroutines.channels.Channel
 internal fun PokemonListScreen(viewState: PokemonList.ViewState, viewModel: IPokemonListViewModel) {
   MaterialTheme {
     Scaffold { _ ->
+      val scrollState = rememberLazyGridState()
       LazyVerticalGrid(
-        columns = GridCells.Fixed(2)
+        columns = GridCells.Fixed(2),
+        state = scrollState,
       ) {
         items(viewState.pokemonList) { pokemon ->
           PokemonItem(pokemon = pokemon, viewModel = viewModel)
         }
       }
+
+      LaunchedEffect(
+        key1 = !scrollState.canScrollForward,
+        block = {
+          viewModel.uiAction.trySend(PokemonList.Action.FetchNextPage)
+        },
+      )
     }
   }
 }
