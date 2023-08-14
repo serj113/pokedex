@@ -4,5 +4,9 @@ import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonListResponse
 
 interface GetPokemonListUseCase {
-  suspend operator fun invoke(offset: Int?, limit: Int?): ApiResult<PokemonListResponse>
+  companion object {
+    const val LIMIT = 20
+  }
+
+  suspend operator fun invoke(page: Int?): ApiResult<PokemonListResponse>
 }

@@ -6,6 +6,7 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,6 +30,8 @@ class PokemonListViewModel @Inject constructor(
 
   override val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
 
+  private var fetchJob: Job? = null
+
   init {
     uiAction.receiveAsFlow()
       .onEach { action ->
@@ -42,24 +45,29 @@ class PokemonListViewModel @Inject constructor(
       is PokemonList.Action.OnClickItem -> {
         _event.trySend(PokemonList.Event.GoToDetail(action.pokemonId))
       }
-      PokemonList.Action.InitPage -> {
+
+      PokemonList.Action.FetchNextPage -> {
         fetchPokemonList()
       }
     }
   }
 
-  private fun fetchPokemonList() = viewModelScope.launch {
-    when (val result = useCase()) {
-      is ApiResult.Success -> {
-        _viewState.update { viewState ->
-          viewState.copy(
-            pokemonList = result.value.results
-          )
+  private fun fetchPokemonList() {
+    if (fetchJob?.isCompleted == false) return
+    fetchJob = viewModelScope.launch {
+      when (val result = useCase(_viewState.value.page)) {
+        is ApiResult.Success -> {
+          _viewState.update { viewState ->
+            viewState.copy(
+              pokemonList = viewState.pokemonList.plus(result.value.results),
+              page = viewState.page + 1
+            )
+          }
         }
-      }
 
-      is ApiResult.Error -> {
+        is ApiResult.Error -> {
 
+        }
       }
     }
   }

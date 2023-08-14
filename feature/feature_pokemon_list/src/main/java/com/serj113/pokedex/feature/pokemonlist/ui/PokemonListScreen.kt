@@ -33,7 +33,7 @@ internal fun PokemonListScreen(viewState: PokemonList.ViewState, viewModel: IPok
       LaunchedEffect(
         key1 = !scrollState.canScrollForward,
         block = {
-
+          viewModel.uiAction.trySend(PokemonList.Action.FetchNextPage)
         },
       )
     }

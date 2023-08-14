@@ -9,7 +9,8 @@ import javax.inject.Inject
 class GetPokemonListUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
 ) : GetPokemonListUseCase {
-  override suspend fun invoke(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
-    return pokemonRepository.fetchPokemonList(offset, limit)
+  override suspend fun invoke(page: Int?): ApiResult<PokemonListResponse> {
+    val offset = ((page ?: 1) - 1) * GetPokemonListUseCase.LIMIT
+    return pokemonRepository.fetchPokemonList(offset, GetPokemonListUseCase.LIMIT)
   }
 }
