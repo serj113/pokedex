@@ -4,13 +4,14 @@ import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.domain.usecase.LoadPokemonColorListUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 class LoadPokemonColorListUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository
 ) : LoadPokemonColorListUseCase {
 
-  private var pokemonColorHashMap = hashMapOf<Int, PokemonColorDetailResponse>()
+  private var pokemonColorHashMap = ConcurrentHashMap<Int, PokemonColorDetailResponse>()
 
   override suspend fun invoke() {
     when (val result = pokemonRepository.fetchPokemonColorList()) {

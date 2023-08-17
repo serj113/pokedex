@@ -14,4 +14,6 @@ interface PokemonRepository {
   suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse>
 
   suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse>
+
+  suspend fun loadPokemonColor()
 }
