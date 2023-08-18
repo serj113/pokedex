@@ -5,6 +5,7 @@ import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
 import com.serj113.pokedex.core.model.PokemonDetailResponse
 import com.serj113.pokedex.core.model.PokemonListResponse
+import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 
 interface PokemonRepository {
   suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse>
@@ -14,4 +15,8 @@ interface PokemonRepository {
   suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse>
 
   suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse>
+
+  suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse>
+
+  suspend fun loadPokemonColor()
 }

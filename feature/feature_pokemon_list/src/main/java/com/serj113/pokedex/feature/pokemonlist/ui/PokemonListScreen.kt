@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.serj113.pokedex.core.model.DataItem
+import com.serj113.pokedex.core.model.utils.getPokemonId
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import kotlinx.coroutines.channels.Channel
 
@@ -26,7 +27,12 @@ internal fun PokemonListScreen(viewState: PokemonList.ViewState, viewModel: IPok
         state = scrollState,
       ) {
         items(viewState.pokemonList) { pokemon ->
-          PokemonItem(pokemon = pokemon, viewModel = viewModel)
+          val color: Int = viewState.pokemonColor[pokemon.getPokemonId()] ?: android.graphics.Color.WHITE
+          PokemonItem(
+            pokemon = pokemon,
+            color = color,
+            viewModel = viewModel,
+          )
         }
       }
 
