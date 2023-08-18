@@ -81,7 +81,7 @@ class PokemonRepositoryImpl @Inject constructor(
         result.value.results.forEach { pokemonColor ->
           val splits = pokemonColor.url.split("/")
           scope.launch {
-            val colorId = splits[splits.count() - 2].toInt())
+            val colorId = splits[splits.count() - 2].toInt()
             when (val detailResult = fetchPokemonColorDetail(colorId)) {
               is ApiResult.Success -> {
                 pokemonColorHashMap[colorId] = detailResult.value
