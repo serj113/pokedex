@@ -8,23 +8,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
+import com.serj113.pokedex.feature.pokemonlist.R
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import com.serj113.pokedex.feature.pokemonlist.util.getSpriteImage
 import kotlinx.coroutines.channels.Channel
 
 @Composable
-fun PokemonItem(pokemon: DataItem, viewModel: IPokemonListViewModel) {
+fun PokemonItem(pokemon: DataItem, color: Int, viewModel: IPokemonListViewModel) {
   Card(
     shape = RoundedCornerShape(8.dp),
+    colors = CardDefaults.cardColors(
+      containerColor = Color(color)
+    ),
     modifier = Modifier
       .clickable {
         viewModel.uiAction.trySend(PokemonList.Action.OnClickItem(pokemon.getPokemonId()))
@@ -61,6 +67,7 @@ fun PokemonItem(pokemon: DataItem, viewModel: IPokemonListViewModel) {
 fun PreviewPokemonItem() {
   PokemonItem(
     DataItem("bulbasaur", "https://pokeapi.co/api/v2/pokemon/1/"),
+    -1,
     object : IPokemonListViewModel {
       override val uiAction: Channel<PokemonList.Action>
         get() = Channel(Channel.BUFFERED)
