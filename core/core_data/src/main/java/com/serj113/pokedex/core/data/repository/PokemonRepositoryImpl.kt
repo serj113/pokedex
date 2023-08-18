@@ -7,6 +7,7 @@ import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
 import com.serj113.pokedex.core.model.PokemonDetailResponse
 import com.serj113.pokedex.core.model.PokemonListResponse
+import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,6 +65,20 @@ class PokemonRepositoryImpl @Inject constructor(
   override suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse> {
     return try {
       val response = service.getPokemonColorDetail(id)
+      val body = response.body()
+      if (body != null && response.isSuccessful) {
+        ApiResult.Success(body)
+      } else {
+        ApiResult.Error()
+      }
+    } catch (e: Exception) {
+      ApiResult.Error(e)
+    }
+  }
+
+  override suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse> {
+    return try {
+      val response = service.getPokemonSpecies(id)
       val body = response.body()
       if (body != null && response.isSuccessful) {
         ApiResult.Success(body)
