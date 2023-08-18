@@ -19,6 +19,8 @@ class PokemonRepositoryImpl @Inject constructor(
 
   private val scope = CoroutineScope(Dispatchers.IO)
   private var pokemonColorHashMap = hashMapOf<Int, PokemonColorDetailResponse>()
+  private var pokemonDetailHashMap = hashMapOf<Int, PokemonDetailResponse>()
+  private var pokemonSpeciesHashMap = hashMapOf<Int, PokemonSpeciesResponse>()
 
   override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
     return try {
@@ -35,16 +37,21 @@ class PokemonRepositoryImpl @Inject constructor(
   }
 
   override suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse> {
-    return try {
-      val response = service.getPokemonDetail(id)
-      val body = response.body()
-      if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
-      } else {
-        ApiResult.Error()
+    return pokemonDetailHashMap[id]?.let { pokemonDetailResponse ->
+      ApiResult.Success(pokemonDetailResponse)
+    } ?: run {
+      try {
+        val response = service.getPokemonDetail(id)
+        val body = response.body()
+        if (body != null && response.isSuccessful) {
+          pokemonDetailHashMap[id] = body
+          ApiResult.Success(body)
+        } else {
+          ApiResult.Error()
+        }
+      } catch (e: Exception) {
+        ApiResult.Error(e)
       }
-    } catch (e: Exception) {
-      ApiResult.Error(e)
     }
   }
 
@@ -77,16 +84,21 @@ class PokemonRepositoryImpl @Inject constructor(
   }
 
   override suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse> {
-    return try {
-      val response = service.getPokemonSpecies(id)
-      val body = response.body()
-      if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
-      } else {
-        ApiResult.Error()
+    return pokemonSpeciesHashMap[id]?.let { pokemonSpeciesResponse ->
+      ApiResult.Success(pokemonSpeciesResponse)
+    } ?: run {
+      try {
+        val response = service.getPokemonSpecies(id)
+        val body = response.body()
+        if (body != null && response.isSuccessful) {
+          pokemonSpeciesHashMap[id] = body
+          ApiResult.Success(body)
+        } else {
+          ApiResult.Error()
+        }
+      } catch (e: Exception) {
+        ApiResult.Error(e)
       }
-    } catch (e: Exception) {
-      ApiResult.Error(e)
     }
   }
 

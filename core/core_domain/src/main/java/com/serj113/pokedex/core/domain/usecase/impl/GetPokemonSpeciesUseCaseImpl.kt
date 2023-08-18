@@ -10,6 +10,6 @@ class GetPokemonSpeciesUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
 ) : GetPokemonSpeciesUseCase {
   override suspend fun invoke(id: Int): ApiResult<PokemonSpeciesResponse> {
-    TODO("Not yet implemented")
+    return pokemonRepository.fetchPokemonSpecies(id)
   }
 }
