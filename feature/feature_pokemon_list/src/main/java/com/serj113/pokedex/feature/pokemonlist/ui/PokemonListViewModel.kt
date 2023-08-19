@@ -7,6 +7,7 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
+import com.serj113.pokedex.common.presentation.R as RPresentation
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -37,11 +38,9 @@ class PokemonListViewModel @Inject constructor(
   private var fetchJob: Job? = null
 
   init {
-    uiAction.receiveAsFlow()
-      .onEach { action ->
+    uiAction.receiveAsFlow().onEach { action ->
         onUiAction(action)
-      }
-      .launchIn(viewModelScope)
+      }.launchIn(viewModelScope)
   }
 
   private fun onUiAction(action: PokemonList.Action) {
@@ -84,11 +83,9 @@ class PokemonListViewModel @Inject constructor(
         when (val result = pokemonColorUseCase(pokemonId)) {
           is ApiResult.Success -> {
             _viewState.update { viewState ->
-              viewState.copy(
-                pokemonColor = viewState.pokemonColor.apply {
-                  put(pokemonId, getAndroidColor(result.value))
-                }
-              )
+              viewState.copy(pokemonColor = viewState.pokemonColor.apply {
+                put(pokemonId, getAndroidColor(result.value))
+              })
             }
           }
 
@@ -102,16 +99,16 @@ class PokemonListViewModel @Inject constructor(
 
   private fun getAndroidColor(webColor: String): Int {
     return when (webColor) {
-      "black" -> android.graphics.Color.BLACK
-      "blue" -> android.graphics.Color.BLUE
-//      "brown" -> android.graphics.Color.BR
-      "gray" -> android.graphics.Color.GRAY
-      "green" -> android.graphics.Color.GREEN
-//      "pink" -> android.graphics.Color.PI
-//      "purple" -> android.graphics.Color.PU
-      "red" -> android.graphics.Color.RED
-      "yellow" -> android.graphics.Color.YELLOW
-      else -> android.graphics.Color.WHITE
+      "black" -> RPresentation.color.black
+      "blue" -> RPresentation.color.blue
+      "brown" -> RPresentation.color.brown
+      "gray" -> RPresentation.color.gray
+      "green" -> RPresentation.color.green
+      "pink" -> RPresentation.color.pink
+      "purple" -> RPresentation.color.purple
+      "red" -> RPresentation.color.red
+      "yellow" -> RPresentation.color.yellow
+      else -> RPresentation.color.white
     }
   }
 }

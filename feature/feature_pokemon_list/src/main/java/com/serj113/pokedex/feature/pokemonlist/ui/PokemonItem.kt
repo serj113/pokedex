@@ -13,13 +13,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
-import com.serj113.pokedex.feature.pokemonlist.R
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import com.serj113.pokedex.feature.pokemonlist.util.getSpriteImage
 import kotlinx.coroutines.channels.Channel
@@ -29,7 +28,7 @@ fun PokemonItem(pokemon: DataItem, color: Int, viewModel: IPokemonListViewModel)
   Card(
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(
-      containerColor = Color(color)
+      containerColor = colorResource(id = color)
     ),
     modifier = Modifier
       .clickable {

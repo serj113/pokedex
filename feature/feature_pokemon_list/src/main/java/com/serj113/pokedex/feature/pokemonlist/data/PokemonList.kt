@@ -1,8 +1,6 @@
 package com.serj113.pokedex.feature.pokemonlist.data
 
 import com.serj113.pokedex.core.model.DataItem
-import com.serj113.pokedex.core.model.PokemonDetailResponse
-import java.util.concurrent.ConcurrentHashMap
 
 object PokemonList {
 
