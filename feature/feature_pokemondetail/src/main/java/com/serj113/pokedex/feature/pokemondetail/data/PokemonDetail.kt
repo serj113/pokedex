@@ -7,6 +7,7 @@ object PokemonDetail {
   data class ViewState(
     val pokemonId: Int = 0,
     val pokemonDataItem: DataItem = DataItem(),
+    val pokemonColor: Int? = null,
     val pokemonDetail: PokemonDetailResponse = PokemonDetailResponse(),
   )
 
