@@ -3,9 +3,12 @@ package com.serj113.pokedex.feature.pokemondetail.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.common.navigation.Parameter
+import com.serj113.pokedex.common.presentation.PokemonColor
+import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
+import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.model.ApiResult
+import com.serj113.pokedex.core.model.utils.getSpeciesId
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -22,6 +25,7 @@ import javax.inject.Inject
 class PokemonDetailViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val useCase: GetPokemonDetailUseCase,
+  private val pokemonColorUseCase: GetPokemonColorWithSpeciesIdUseCase,
 ) : ViewModel(), IPokemonDetailViewModel {
 
   private val _viewState = MutableStateFlow(PokemonDetail.ViewState())
@@ -58,11 +62,28 @@ class PokemonDetailViewModel @Inject constructor(
               pokemonDetail = result.value
             )
           }
+          getPokemonColor(result.value.species.getSpeciesId())
         }
 
         is ApiResult.Error -> {
 
         }
+      }
+    }
+  }
+
+  private suspend fun getPokemonColor(speciesId: Int) {
+    when (val result = pokemonColorUseCase(speciesId)) {
+      is ApiResult.Success -> {
+        _viewState.update { viewState ->
+          viewState.copy(
+            pokemonColor = PokemonColor.getComposeColor(result.value),
+          )
+        }
+      }
+
+      is ApiResult.Error -> {
+
       }
     }
   }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,9 @@ import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 internal fun PokemonDetailHeader(viewState: PokemonDetail.ViewState) {
   Card(
     shape = RoundedCornerShape(bottomEnd = 8.dp, bottomStart = 8.dp),
+    colors = CardDefaults.cardColors(
+      containerColor = viewState.pokemonColor
+    ),
     modifier = Modifier
       .fillMaxWidth()
       .padding(4.dp),

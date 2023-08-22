@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
+import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
 import com.serj113.pokedex.common.presentation.R as RPresentation
@@ -27,7 +28,7 @@ internal fun PokemonListScreen(viewState: PokemonList.ViewState, viewModel: IPok
         state = scrollState,
       ) {
         items(viewState.pokemonList) { pokemon ->
-          val color: Int = viewState.pokemonColor[pokemon.getPokemonId()] ?: RPresentation.color.white
+          val color = viewState.pokemonColor[pokemon.getPokemonId()] ?: ComposeColor.white
           PokemonItem(
             pokemon = pokemon,
             color = color,

@@ -27,10 +27,21 @@ android {
   kotlinOptions {
     jvmTarget = "17"
   }
+  buildFeatures {
+    compose = true
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.1"
+  }
 }
 
 dependencies {
   implementation(project(":core_model"))
 
   implementation(libs.kotlin.stdlib)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.compose.ui)
+  implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.tooling)
+  implementation(libs.compose.material)
 }
