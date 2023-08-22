@@ -13,10 +13,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
@@ -24,11 +26,11 @@ import com.serj113.pokedex.feature.pokemonlist.util.getSpriteImage
 import kotlinx.coroutines.channels.Channel
 
 @Composable
-fun PokemonItem(pokemon: DataItem, color: Int, viewModel: IPokemonListViewModel) {
+fun PokemonItem(pokemon: DataItem, color: Color, viewModel: IPokemonListViewModel) {
   Card(
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(
-      containerColor = colorResource(id = color)
+      containerColor = color
     ),
     modifier = Modifier
       .clickable {
@@ -66,7 +68,7 @@ fun PokemonItem(pokemon: DataItem, color: Int, viewModel: IPokemonListViewModel)
 fun PreviewPokemonItem() {
   PokemonItem(
     DataItem("bulbasaur", "https://pokeapi.co/api/v2/pokemon/1/"),
-    -1,
+    ComposeColor.white,
     object : IPokemonListViewModel {
       override val uiAction: Channel<PokemonList.Action>
         get() = Channel(Channel.BUFFERED)

@@ -40,5 +40,8 @@ dependencies {
 
   implementation(libs.kotlin.stdlib)
   implementation(platform(libs.compose.bom))
+  implementation(libs.compose.ui)
   implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.tooling)
+  implementation(libs.compose.material)
 }

@@ -2,6 +2,7 @@ package com.serj113.pokedex.feature.pokemonlist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.serj113.pokedex.common.presentation.PokemonColor
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithPokemonIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.model.ApiResult
@@ -84,7 +85,7 @@ class PokemonListViewModel @Inject constructor(
           is ApiResult.Success -> {
             _viewState.update { viewState ->
               viewState.copy(pokemonColor = viewState.pokemonColor.apply {
-                put(pokemonId, getAndroidColor(result.value))
+                put(pokemonId, PokemonColor.getComposeColor(result.value))
               })
             }
           }
@@ -94,21 +95,6 @@ class PokemonListViewModel @Inject constructor(
           }
         }
       }
-    }
-  }
-
-  private fun getAndroidColor(webColor: String): Int {
-    return when (webColor) {
-      "black" -> RPresentation.color.black
-      "blue" -> RPresentation.color.blue
-      "brown" -> RPresentation.color.brown
-      "gray" -> RPresentation.color.gray
-      "green" -> RPresentation.color.green
-      "pink" -> RPresentation.color.pink
-      "purple" -> RPresentation.color.purple
-      "red" -> RPresentation.color.red
-      "yellow" -> RPresentation.color.yellow
-      else -> RPresentation.color.white
     }
   }
 }
