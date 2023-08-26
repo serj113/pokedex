@@ -5,20 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RadialGradientShader
 import androidx.compose.ui.graphics.Shader
 import androidx.compose.ui.graphics.ShaderBrush
@@ -34,31 +28,34 @@ internal fun PokemonDetailScreen(
   viewModel: IPokemonDetailViewModel,
 ) {
   MaterialTheme {
-    Scaffold(
-      topBar = {
-        PokemonDetailAppBar(viewModel)
-      },
-    ) { innerpadding ->
-      val largeRadialGradient = object : ShaderBrush() {
-        override fun createShader(size: Size): Shader {
-          val biggerDimension = maxOf(size.height, size.width)
-          return RadialGradientShader(
-            colors = listOf(viewState.pokemonColor, ComposeColor.white),
-            center = Offset(size.width / 2f, size.height / 5f),
-            radius = biggerDimension * 0.75f,
-            colorStops = listOf(0f, 0.95f)
-          )
-        }
+    val largeRadialGradient = object : ShaderBrush() {
+      override fun createShader(size: Size): Shader {
+        val biggerDimension = maxOf(size.height, size.width)
+        return RadialGradientShader(
+          colors = listOf(viewState.pokemonColor, ComposeColor.white),
+          center = Offset(size.width / 2f, size.height / 5f),
+          radius = biggerDimension * 0.75f,
+          colorStops = listOf(0f, 0.95f)
+        )
       }
-      Box(
-        modifier = Modifier
-          .padding(innerpadding)
-          .fillMaxSize()
-          .background(
-            largeRadialGradient,
-          ),
-      ) {
-        LazyColumn {
+    }
+    Box(
+      modifier = Modifier
+        .fillMaxSize()
+        .background(
+          largeRadialGradient,
+        ),
+    ) {
+      Scaffold(
+        topBar = {
+          PokemonDetailAppBar(viewModel)
+        },
+        containerColor = Color.Transparent,
+      ) { innerPadding ->
+        LazyColumn(
+          modifier = Modifier
+            .padding(innerPadding),
+        ) {
           item {
             PokemonDetailHeader(viewState = viewState)
           }
