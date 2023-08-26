@@ -15,5 +15,11 @@ object PokemonDetail {
 
   sealed class Action {
     object InnitPage : Action()
+    object OnBackPressed : Action()
+    object OnFavoritePressed : Action()
+  }
+
+  sealed class Event {
+    object GoBack : Event()
   }
 }

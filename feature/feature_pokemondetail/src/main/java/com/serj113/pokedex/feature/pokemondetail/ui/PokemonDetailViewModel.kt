@@ -12,6 +12,7 @@ import com.serj113.pokedex.core.model.utils.getSpeciesId
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -33,6 +34,9 @@ class PokemonDetailViewModel @Inject constructor(
 
   override val uiAction = Channel<PokemonDetail.Action>(Channel.BUFFERED)
 
+  private val _uiEvent = Channel<PokemonDetail.Event>(Channel.BUFFERED)
+  val uiEventFlow: Flow<PokemonDetail.Event> = _uiEvent.receiveAsFlow()
+
   init {
     uiAction.receiveAsFlow()
       .onEach { action ->
@@ -44,6 +48,12 @@ class PokemonDetailViewModel @Inject constructor(
   private fun onUiAction(action: PokemonDetail.Action) {
     when (action) {
       PokemonDetail.Action.InnitPage -> getPokemonDetail()
+      PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
+        _uiEvent.send(PokemonDetail.Event.GoBack)
+      }
+      PokemonDetail.Action.OnFavoritePressed -> {
+
+      }
     }
   }
 

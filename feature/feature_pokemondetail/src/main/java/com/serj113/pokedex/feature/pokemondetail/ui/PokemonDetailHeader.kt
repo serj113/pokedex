@@ -13,7 +13,9 @@ import com.serj113.pokedex.common.presentation.SpriteImage
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 
 @Composable
-internal fun PokemonDetailHeader(viewState: PokemonDetail.ViewState) {
+internal fun PokemonDetailHeader(
+  viewState: PokemonDetail.ViewState,
+) {
   Column {
     Spacer(
       modifier = Modifier
