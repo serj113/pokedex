@@ -59,6 +59,9 @@ internal fun PokemonDetailScreen(
           item {
             PokemonDetailHeader(viewState = viewState)
           }
+          item {
+            PokemonDetailContent(viewState = viewState)
+          }
         }
       }
     }
