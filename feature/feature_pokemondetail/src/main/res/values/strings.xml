@@ -1,0 +1,4 @@
+<resources>
+    <string name="pokemon_detail__label_height">Height</string>
+    <string name="pokemon_detail__label_weight">Weight</string>
+</resources>
