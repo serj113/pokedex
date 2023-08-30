@@ -4,7 +4,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.serj113.pokedex.common.presentation.ComposeColor
+import com.serj113.pokedex.core.model.PokemonDetailResponse
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 
 @Composable
@@ -16,10 +18,23 @@ fun PokemonDetailContent(
       containerColor = ComposeColor.white,
     )
   ) {
-    LazyColumn() {
+    LazyColumn {
       item {
         AttributeRow(viewState)
       }
     }
   }
+}
+
+@Preview
+@Composable
+fun PreviewPokemonDetailContent() {
+  PokemonDetailContent(
+    viewState = PokemonDetail.ViewState(
+      pokemonDetail = PokemonDetailResponse(
+        weight = 10,
+        height = 10,
+      )
+    )
+  )
 }

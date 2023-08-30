@@ -2,6 +2,7 @@ package com.serj113.pokedex.feature.pokemondetail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,9 @@ import androidx.compose.ui.graphics.Shader
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.tooling.preview.Preview
 import com.serj113.pokedex.common.presentation.ComposeColor
+import com.serj113.pokedex.core.model.DataItem
+import com.serj113.pokedex.core.model.PokemonDetailResponse
+import com.serj113.pokedex.core.model.Type
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 import kotlinx.coroutines.channels.Channel
 
@@ -52,16 +56,12 @@ internal fun PokemonDetailScreen(
         },
         containerColor = Color.Transparent,
       ) { innerPadding ->
-        LazyColumn(
+        Column(
           modifier = Modifier
             .padding(innerPadding),
         ) {
-          item {
-            PokemonDetailHeader(viewState = viewState)
-          }
-          item {
-            PokemonDetailContent(viewState = viewState)
-          }
+          PokemonDetailHeader(viewState = viewState)
+          PokemonDetailContent(viewState = viewState)
         }
       }
     }
@@ -74,6 +74,20 @@ internal fun PreviewPokemonDetailScreen() {
   PokemonDetailScreen(
     viewState = PokemonDetail.ViewState(
       pokemonColor = ComposeColor.red,
+      pokemonDetail = PokemonDetailResponse(
+        weight = 10,
+        height = 10,
+        types = listOf(
+          Type(
+            slot = 1,
+            type = DataItem("fighting", "")
+          ),
+          Type(
+            slot = 2,
+            type = DataItem("ghost", "")
+          ),
+        ),
+      ),
     ),
     viewModel = object : IPokemonDetailViewModel {
       override val uiAction: Channel<PokemonDetail.Action>
