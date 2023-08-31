@@ -1,11 +1,13 @@
 package com.serj113.pokedex.feature.pokemondetail.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,9 +39,13 @@ fun TypeColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-        Icon(
+        Image(
+          modifier = Modifier
+            .width(40.dp)
+            .height(40.dp)
+            .padding(bottom = 2.dp),
           painter = painterResource(id = PokemonType.getTypeDrawable(type.type.name)),
-          contentDescription = null
+          contentDescription = ""
         )
         Text(
           text = type.type.name.capitalize(),
