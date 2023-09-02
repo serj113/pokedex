@@ -39,6 +39,10 @@ dependencies {
   implementation(project(":core_model"))
 
   implementation(libs.kotlin.stdlib)
+
+  implementation(libs.androidx.lifecycle)
+  implementation(libs.androidx.viewmodel)
+
   implementation(platform(libs.compose.bom))
   implementation(libs.compose.ui)
   implementation(libs.compose.ui.graphics)

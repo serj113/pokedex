@@ -11,5 +11,5 @@ fun PokemonDetailFragment() {
   val viewModel: PokemonDetailViewModel = hiltViewModel()
   val viewState by viewModel.viewStateFlow.collectAsState()
   viewModel.uiAction.trySend(PokemonDetail.Action.InnitPage)
-  PokemonDetailScreen(viewState = viewState)
+  PokemonDetailScreen(viewState = viewState, viewModel = viewModel)
 }
