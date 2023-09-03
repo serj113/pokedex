@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
-import com.serj113.pokedex.common.presentation.R as RPresentation
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import kotlinx.coroutines.channels.Channel
 

@@ -38,28 +38,61 @@ fun PokemonItem(pokemon: DataItem, color: Color, viewModel: IPokemonListViewMode
       }
       .padding(4.dp),
   ) {
-    Row(
-      horizontalArrangement = Arrangement.SpaceEvenly,
-      modifier = Modifier.padding(8.dp),
+    if (pokemon.getPokemonId() / 2 == 0) {
+      PokemonItemLeft(pokemon)
+    } else PokemonItemRight(pokemon)
+  }
+}
+
+@Composable
+fun PokemonItemLeft(pokemon: DataItem) {
+  Row(
+    horizontalArrangement = Arrangement.SpaceEvenly,
+    modifier = Modifier.padding(8.dp),
+  ) {
+    AsyncImage(
+      model = pokemon.getSpriteImage(),
+      contentDescription = null,
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(1f),
+    )
+    Column(
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(1f),
     ) {
-      Column(
-        modifier = Modifier
-          .fillMaxWidth()
-          .weight(1f),
-      ) {
-        Text(
-          text = pokemon.name,
-          style = MaterialTheme.typography.bodyLarge
-        )
-      }
-      AsyncImage(
-        model = pokemon.getSpriteImage(),
-        contentDescription = null,
-        modifier = Modifier
-          .fillMaxWidth()
-          .weight(1f),
+      Text(
+        text = pokemon.name,
+        style = MaterialTheme.typography.bodyLarge
       )
     }
+  }
+}
+
+@Composable
+fun PokemonItemRight(pokemon: DataItem) {
+  Row(
+    horizontalArrangement = Arrangement.SpaceEvenly,
+    modifier = Modifier.padding(8.dp),
+  ) {
+    Column(
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(1f),
+    ) {
+      Text(
+        text = pokemon.name,
+        style = MaterialTheme.typography.bodyLarge
+      )
+    }
+    AsyncImage(
+      model = pokemon.getSpriteImage(),
+      contentDescription = null,
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(1f),
+    )
   }
 }
 
