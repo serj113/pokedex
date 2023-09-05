@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -47,25 +48,25 @@ fun PokemonItemLeft(pokemon: DataItem, color: Color, viewModel: IPokemonListView
       return RadialGradientShader(
         colors = listOf(color, ComposeColor.white),
         center = Offset(size.width * 0.25f, size.height * 0.5f),
-        radius = biggerDimension * 0.75f,
-        colorStops = listOf(0f, 0.5f)
+        radius = biggerDimension * 0.9f,
+        colorStops = listOf(0f, 0.75f)
       )
     }
   }
-  Box(
+  Card(
+    shape = RoundedCornerShape(8.dp),
+    colors = CardDefaults.cardColors(
+      containerColor = Color.Transparent,
+    ),
     modifier = Modifier
-      .background(largeRadialGradient),
+      .clickable {
+        viewModel.uiAction.trySend(PokemonList.Action.OnClickItem(pokemon.getPokemonId()))
+      }
+      .padding(4.dp),
   ) {
-    Card(
-      shape = RoundedCornerShape(8.dp),
-      colors = CardDefaults.cardColors(
-        containerColor = Color.Transparent,
-      ),
+    Box(
       modifier = Modifier
-        .clickable {
-          viewModel.uiAction.trySend(PokemonList.Action.OnClickItem(pokemon.getPokemonId()))
-        }
-        .padding(4.dp),
+        .background(largeRadialGradient),
     ) {
       Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -102,24 +103,21 @@ fun PokemonItemRight(pokemon: DataItem, color: Color, viewModel: IPokemonListVie
         colors = listOf(color, ComposeColor.white),
         center = Offset(size.width * 0.75f, size.height * 0.5f),
         radius = biggerDimension * 0.9f,
-        colorStops = listOf(0f, 0.5f)
+        colorStops = listOf(0f, 0.75f)
       )
     }
   }
-  Box(
+  Card(
+    shape = RoundedCornerShape(8.dp),
     modifier = Modifier
-      .background(largeRadialGradient),
+      .clickable {
+        viewModel.uiAction.trySend(PokemonList.Action.OnClickItem(pokemon.getPokemonId()))
+      }
+      .padding(4.dp),
   ) {
-    Card(
-      shape = RoundedCornerShape(8.dp),
-      colors = CardDefaults.cardColors(
-        containerColor = Color.Transparent,
-      ),
+    Box(
       modifier = Modifier
-        .clickable {
-          viewModel.uiAction.trySend(PokemonList.Action.OnClickItem(pokemon.getPokemonId()))
-        }
-        .padding(4.dp),
+        .background(largeRadialGradient),
     ) {
       Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
