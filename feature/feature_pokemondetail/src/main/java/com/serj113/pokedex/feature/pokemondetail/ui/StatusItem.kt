@@ -17,6 +17,7 @@ import com.serj113.pokedex.core.model.Stat
 
 @Composable
 fun StatusItem(stat: Stat) {
+  val color = PokemonStatus.getStatusColor(stat)
   Row(
     modifier = Modifier
       .padding(4.dp),
@@ -25,10 +26,12 @@ fun StatusItem(stat: Stat) {
     Text(
       text = PokemonStatus.getStatusAbbreviation(stat),
       fontWeight = PokemonStatus.getStatusFontWeight(stat),
+      color = color,
     )
     Spacer(modifier = Modifier.width(8.dp))
     LinearProgressIndicator(
-      progress = PokemonStatus.getStatusProgress(stat)
+      progress = PokemonStatus.getStatusProgress(stat),
+      color = color,
     )
   }
 }

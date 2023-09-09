@@ -1,5 +1,6 @@
 package com.serj113.pokedex.common.presentation
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import com.serj113.pokedex.core.model.Stat
@@ -50,6 +51,18 @@ object PokemonStatus {
       "hp", "attack", "defense", "speed" -> FontWeight.SemiBold
       "special-attack", "special-defense" -> FontWeight.ExtraBold
       else -> FontWeight.Medium
+    }
+  }
+
+  fun getStatusColor(stat: Stat): Color {
+    return when (stat.stat.name) {
+      "hp" -> ComposeColor.green_300
+      "attack" -> ComposeColor.red_300
+      "defense" -> ComposeColor.blue_300
+      "special-attack" -> ComposeColor.red_700
+      "special-defense" -> ComposeColor.blue_700
+      "speed" -> ComposeColor.green_700
+      else -> ComposeColor.blue_100
     }
   }
 }
