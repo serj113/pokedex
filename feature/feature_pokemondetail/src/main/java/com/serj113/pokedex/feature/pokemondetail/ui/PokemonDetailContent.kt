@@ -25,7 +25,8 @@ fun PokemonDetailContent(
   ) {
     LazyColumn {
       item {
-        AttributeRow(viewState)
+        AttributeRow(viewState = viewState)
+        StatusColumn(viewState = viewState)
       }
     }
   }
