@@ -1,9 +1,9 @@
 package com.serj113.pokedex.feature.pokemondetail.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +20,9 @@ fun StatusItem(stat: Stat) {
   val color = PokemonStatus.getStatusColor(stat)
   Row(
     modifier = Modifier
+      .fillMaxWidth()
       .padding(4.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically,
   ) {
     Text(
@@ -28,7 +30,6 @@ fun StatusItem(stat: Stat) {
       fontWeight = PokemonStatus.getStatusFontWeight(stat),
       color = color,
     )
-    Spacer(modifier = Modifier.width(8.dp))
     LinearProgressIndicator(
       progress = PokemonStatus.getStatusProgress(stat),
       color = color,
