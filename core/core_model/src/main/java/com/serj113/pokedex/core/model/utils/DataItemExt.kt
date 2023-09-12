@@ -9,3 +9,7 @@ fun DataItem.getPokemonId(): Int {
 fun DataItem.getSpeciesId(): Int {
   return url.split("/").getOrNull(6)?.toInt() ?: 0
 }
+
+fun DataItem.getMoveId(): Int {
+  return url.split("/").getOrNull(6)?.toInt() ?: 0
+}

@@ -6,6 +6,7 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithPokemonIdUseCa
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
+import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonSpeciesUseCase
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorDetailUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorListUseCaseImpl
@@ -13,6 +14,7 @@ import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorWithPokemonId
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorWithSpeciesIdUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonDetailUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonListUseCaseImpl
+import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonMovesWithPokemonIdUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonSpeciesUseCaseImpl
 import dagger.Binds
 import dagger.Module
@@ -65,4 +67,10 @@ abstract class UseCaseModule {
   internal abstract fun provideGetPokemonColorWithSpeciesIdUseCase(
     getPokemonColorWithSpeciesIdUseCaseImpl: GetPokemonColorWithSpeciesIdUseCaseImpl
   ): GetPokemonColorWithSpeciesIdUseCase
+
+  @Binds
+  @Singleton
+  internal abstract fun provideGetPokemonMovesWithPokemonIdUseCase(
+    getPokemonMovesWithPokemonIdUseCaseImpl: GetPokemonMovesWithPokemonIdUseCaseImpl
+  ): GetPokemonMovesWithPokemonIdUseCase
 }

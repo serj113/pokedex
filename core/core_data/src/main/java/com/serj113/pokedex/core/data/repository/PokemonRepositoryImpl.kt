@@ -7,6 +7,7 @@ import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
 import com.serj113.pokedex.core.model.PokemonDetailResponse
 import com.serj113.pokedex.core.model.PokemonListResponse
+import com.serj113.pokedex.core.model.PokemonMoveResponse
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ class PokemonRepositoryImpl @Inject constructor(
   private var pokemonColorHashMap = hashMapOf<Int, PokemonColorDetailResponse>()
   private var pokemonDetailHashMap = hashMapOf<Int, PokemonDetailResponse>()
   private var pokemonSpeciesHashMap = hashMapOf<Int, PokemonSpeciesResponse>()
+  private var pokemonMoveHashMap = hashMapOf<Int, PokemonMoveResponse>()
 
   override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
     return try {
@@ -92,6 +94,25 @@ class PokemonRepositoryImpl @Inject constructor(
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonSpeciesHashMap[id] = body
+          ApiResult.Success(body)
+        } else {
+          ApiResult.Error()
+        }
+      } catch (e: Exception) {
+        ApiResult.Error(e)
+      }
+    }
+  }
+
+  override suspend fun fetchPokemonMove(id: Int): ApiResult<PokemonMoveResponse> {
+    return pokemonMoveHashMap[id]?.let { pokemonMoveResponse ->
+      ApiResult.Success(pokemonMoveResponse)
+    } ?: run {
+      try {
+        val response = service.getPokemonMove(id)
+        val body = response.body()
+        if (body != null && response.isSuccessful) {
+          pokemonMoveHashMap[id] = body
           ApiResult.Success(body)
         } else {
           ApiResult.Error()
