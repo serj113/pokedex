@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.PokemonDetailResponse
+import com.serj113.pokedex.core.model.PokemonMoveResponse
 
 object PokemonDetail {
   data class ViewState(
@@ -11,6 +12,7 @@ object PokemonDetail {
     val pokemonDataItem: DataItem = DataItem(),
     val pokemonColor: Color = ComposeColor.white,
     val pokemonDetail: PokemonDetailResponse = PokemonDetailResponse(),
+    val pokemonMoves: List<PokemonMoveResponse> = listOf(),
   )
 
   sealed class Action {
