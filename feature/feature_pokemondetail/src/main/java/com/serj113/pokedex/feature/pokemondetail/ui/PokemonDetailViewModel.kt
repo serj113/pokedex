@@ -7,6 +7,7 @@ import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.common.presentation.PokemonColor
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
+import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.utils.getSpeciesId
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
@@ -27,6 +28,7 @@ class PokemonDetailViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val useCase: GetPokemonDetailUseCase,
   private val pokemonColorUseCase: GetPokemonColorWithSpeciesIdUseCase,
+  private val pokemonMovesUseCase: GetPokemonMovesWithPokemonIdUseCase,
 ) : ViewModel(), IPokemonDetailViewModel {
 
   private val _viewState = MutableStateFlow(PokemonDetail.ViewState())
@@ -47,7 +49,11 @@ class PokemonDetailViewModel @Inject constructor(
 
   private fun onUiAction(action: PokemonDetail.Action) {
     when (action) {
-      PokemonDetail.Action.InnitPage -> getPokemonDetail()
+      PokemonDetail.Action.InnitPage -> {
+        val pokemonId: Int = checkNotNull(savedStateHandle[Parameter.POKEMON_ID])
+        getPokemonDetail(pokemonId)
+        getPokemonMoves(pokemonId)
+      }
       PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
         _uiEvent.send(PokemonDetail.Event.GoBack)
       }
@@ -57,8 +63,7 @@ class PokemonDetailViewModel @Inject constructor(
     }
   }
 
-  private fun getPokemonDetail() {
-    val pokemonId: Int = checkNotNull(savedStateHandle[Parameter.POKEMON_ID])
+  private fun getPokemonDetail(pokemonId: Int) {
     viewModelScope.launch {
       _viewState.update { viewState ->
         viewState.copy(
@@ -78,6 +83,22 @@ class PokemonDetailViewModel @Inject constructor(
         is ApiResult.Error -> {
 
         }
+      }
+    }
+  }
+
+  private fun getPokemonMoves(pokemonId: Int) {
+    viewModelScope.launch {
+      when (val moves = pokemonMovesUseCase(pokemonId)) {
+        is ApiResult.Success -> {
+          _viewState.update { viewState ->
+            viewState.copy(
+              pokemonMoves = moves.value,
+            )
+          }
+          moves.value
+        }
+        is ApiResult.Error -> { }
       }
     }
   }

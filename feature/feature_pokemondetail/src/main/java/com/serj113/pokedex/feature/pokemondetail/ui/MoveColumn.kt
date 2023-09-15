@@ -1,7 +1,9 @@
 package com.serj113.pokedex.feature.pokemondetail.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
@@ -10,17 +12,18 @@ import androidx.compose.ui.unit.dp
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 
 @Composable
-fun StatusColumn(
-  viewState: PokemonDetail.ViewState,
-) {
+fun MoveColumn(viewState: PokemonDetail.ViewState) {
   Column(
     modifier = Modifier
       .wrapContentHeight()
       .fillMaxWidth()
       .padding(start = 8.dp, end = 8.dp),
   ) {
-    viewState.pokemonDetail.stats.map { stat ->
-      StatusItem(stat = stat)
+    viewState.pokemonMoves.mapIndexed { index, move ->
+      MoveItem(move = move)
+      if (index != viewState.pokemonMoves.lastIndex) {
+        Spacer(modifier = Modifier.height(4.dp))
+      }
     }
   }
 }
