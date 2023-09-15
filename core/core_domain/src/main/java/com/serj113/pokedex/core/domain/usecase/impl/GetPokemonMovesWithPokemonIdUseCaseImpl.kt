@@ -6,8 +6,9 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCa
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonMoveResponse
 import com.serj113.pokedex.core.model.utils.getMoveId
+import javax.inject.Inject
 
-class GetPokemonMovesWithPokemonIdUseCaseImpl(
+class GetPokemonMovesWithPokemonIdUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
   private val getPokemonDetailUseCase: GetPokemonDetailUseCase,
 ) : GetPokemonMovesWithPokemonIdUseCase {
