@@ -31,8 +31,6 @@ internal fun PokemonDetailHeader(
     )
     val model = ImageRequest.Builder(LocalContext.current)
       .data(SpriteImage.getUrl(viewState.pokemonId))
-      .size(Size.ORIGINAL)
-      .crossfade(true)
       .build()
     AsyncImage(
       model = model,
