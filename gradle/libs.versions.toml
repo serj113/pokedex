@@ -15,6 +15,7 @@ appcompat = "1.6.1"
 material = "1.9.0"
 recylerview = "1.2.0"
 constraintlayout = "2.0.4"
+constraintlayout-compose = "1.0.1"
 fragmentktx = "1.6.1"
 navigation = "2.5.3"
 glide = "4.15.1"
@@ -58,6 +59,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 
 # view
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout.compose" }
 recylerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recylerview" }
 fragmentktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentktx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
