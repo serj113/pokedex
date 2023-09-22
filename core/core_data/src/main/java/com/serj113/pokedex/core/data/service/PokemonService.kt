@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.data.service
 
+import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
 import com.serj113.pokedex.core.model.PokemonDetailResponse
@@ -18,6 +19,7 @@ interface PokemonService {
     private const val POKEMON_COLOR_LIST = "pokemon-color"
     private const val POKEMON_COLOR_DETAIL = "pokemon-color/{id}"
     private const val POKEMON_SPECIES_DETAIL = "pokemon-species/{id}"
+    private const val POKEMON_ABILITY_DETAIL = "ability/{id}"
     private const val POKEMON_MOVE_DETAIL = "move/{id}"
   }
 
@@ -44,6 +46,11 @@ interface PokemonService {
   suspend fun getPokemonSpecies(
     @Path("id") id: Int,
   ): Response<PokemonSpeciesResponse>
+
+  @GET(POKEMON_ABILITY_DETAIL)
+  suspend fun getPokemonAbility(
+    @Path("id") id: Int,
+  ): Response<PokemonAbilityResponse>
 
   @GET(POKEMON_MOVE_DETAIL)
   suspend fun getPokemonMove(

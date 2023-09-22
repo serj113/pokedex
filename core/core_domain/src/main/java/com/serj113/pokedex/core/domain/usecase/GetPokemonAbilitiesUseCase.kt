@@ -1,4 +1,8 @@
 package com.serj113.pokedex.core.domain.usecase
 
-class GetPokemonAbilitiesUseCase {
+import com.serj113.pokedex.core.model.ApiResult
+import com.serj113.pokedex.core.model.PokemonAbilityResponse
+
+interface GetPokemonAbilitiesUseCase {
+  suspend operator fun invoke(id: Int): ApiResult<PokemonAbilityResponse>
 }
