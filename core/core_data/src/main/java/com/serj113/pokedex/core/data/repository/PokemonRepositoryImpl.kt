@@ -106,7 +106,7 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchPokemonAbilities(id: Int): ApiResult<PokemonAbilityResponse> {
+  override suspend fun fetchPokemonAbility(id: Int): ApiResult<PokemonAbilityResponse> {
     return pokemonAbilityHashMap[id]?.let { pokemonAbilityResponse ->
       ApiResult.Success(pokemonAbilityResponse)
     } ?: run {
