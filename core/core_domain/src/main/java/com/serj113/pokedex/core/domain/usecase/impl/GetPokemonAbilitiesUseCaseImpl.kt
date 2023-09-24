@@ -12,7 +12,7 @@ class GetPokemonAbilitiesUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
   private val getPokemonDetailUseCase: GetPokemonDetailUseCase,
 ) : GetPokemonAbilitiesUseCase {
-  override suspend fun invoke(id: Int): ApiResult<PokemonAbilityResponse> {
+  override suspend fun invoke(id: Int): ApiResult<List<PokemonAbilityResponse>> {
     val moves = mutableListOf<PokemonAbilityResponse>()
     when (val pokemonDetail = getPokemonDetailUseCase(id)) {
       is ApiResult.Success -> {

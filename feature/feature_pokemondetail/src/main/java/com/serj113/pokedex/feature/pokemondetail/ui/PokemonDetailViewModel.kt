@@ -54,6 +54,7 @@ class PokemonDetailViewModel @Inject constructor(
       PokemonDetail.Action.InnitPage -> {
         val pokemonId: Int = checkNotNull(savedStateHandle[Parameter.POKEMON_ID])
         getPokemonDetail(pokemonId)
+        getPokemonAbilities(pokemonId)
         getPokemonMoves(pokemonId)
       }
       PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
@@ -85,6 +86,22 @@ class PokemonDetailViewModel @Inject constructor(
         is ApiResult.Error -> {
 
         }
+      }
+    }
+  }
+
+  private fun getPokemonAbilities(pokemonId: Int) {
+    viewModelScope.launch {
+      when (val abilities = pokemonAbilitiesUseCase(pokemonId)) {
+        is ApiResult.Success -> {
+          _viewState.update { viewState ->
+            viewState.copy(
+              abilities = abilities.value,
+            )
+          }
+          abilities.value
+        }
+        is ApiResult.Error -> { }
       }
     }
   }

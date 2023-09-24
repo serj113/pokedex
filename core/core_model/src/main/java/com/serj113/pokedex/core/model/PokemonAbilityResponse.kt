@@ -9,8 +9,8 @@ data class PokemonAbilityResponse(
   val id: Int = 0,
   @field:Json(name = "name")
   val name: String = "",
-  @field:Json(name = "is_hidden")
-  val isHidden: Boolean = false,
   @field:Json(name = "effect_entries")
   val effectEntries: List<EffectEntry> = listOf(),
+  @field:Json(name = "pokemon")
+  val pokemon: List<PokemonSlot> = listOf(),
 )

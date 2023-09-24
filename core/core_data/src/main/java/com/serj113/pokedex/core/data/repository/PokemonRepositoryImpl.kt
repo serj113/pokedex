@@ -114,7 +114,7 @@ class PokemonRepositoryImpl @Inject constructor(
         val response = service.getPokemonAbility(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
-          pokemonMoveHashMap[id] = body
+          pokemonAbilityHashMap[id] = body
           ApiResult.Success(body)
         } else {
           ApiResult.Error()
