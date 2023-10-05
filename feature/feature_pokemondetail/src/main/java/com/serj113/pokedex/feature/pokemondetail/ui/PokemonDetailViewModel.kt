@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.common.presentation.PokemonColor
+import com.serj113.pokedex.core.domain.usecase.GetPokemonAbilitiesUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCase
@@ -28,6 +29,7 @@ class PokemonDetailViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val useCase: GetPokemonDetailUseCase,
   private val pokemonColorUseCase: GetPokemonColorWithSpeciesIdUseCase,
+  private val pokemonAbilitiesUseCase: GetPokemonAbilitiesUseCase,
   private val pokemonMovesUseCase: GetPokemonMovesWithPokemonIdUseCase,
 ) : ViewModel(), IPokemonDetailViewModel {
 
@@ -52,6 +54,7 @@ class PokemonDetailViewModel @Inject constructor(
       PokemonDetail.Action.InnitPage -> {
         val pokemonId: Int = checkNotNull(savedStateHandle[Parameter.POKEMON_ID])
         getPokemonDetail(pokemonId)
+        getPokemonAbilities(pokemonId)
         getPokemonMoves(pokemonId)
       }
       PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
@@ -83,6 +86,22 @@ class PokemonDetailViewModel @Inject constructor(
         is ApiResult.Error -> {
 
         }
+      }
+    }
+  }
+
+  private fun getPokemonAbilities(pokemonId: Int) {
+    viewModelScope.launch {
+      when (val abilities = pokemonAbilitiesUseCase(pokemonId)) {
+        is ApiResult.Success -> {
+          _viewState.update { viewState ->
+            viewState.copy(
+              abilities = abilities.value,
+            )
+          }
+          abilities.value
+        }
+        is ApiResult.Error -> { }
       }
     }
   }

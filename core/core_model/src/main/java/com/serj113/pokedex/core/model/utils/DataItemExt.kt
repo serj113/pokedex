@@ -13,3 +13,7 @@ fun DataItem.getSpeciesId(): Int {
 fun DataItem.getMoveId(): Int {
   return url.split("/").getOrNull(6)?.toInt() ?: 0
 }
+
+fun DataItem.getAbilityId(): Int {
+  return url.split("/").getOrNull(6)?.toInt() ?: 0
+}
