@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.domain.di
 
+import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonAbilitiesUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorListUseCase
@@ -9,6 +10,7 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonSpeciesUseCase
+import com.serj113.pokedex.core.domain.usecase.impl.GetEvolutionChainUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonAbilitiesUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorDetailUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonColorListUseCaseImpl
@@ -81,4 +83,10 @@ abstract class UseCaseModule {
   internal abstract fun provideGetPokemonAbilitiesUseCase(
     getPokemonAbilitiesUseCaseImpl: GetPokemonAbilitiesUseCaseImpl
   ): GetPokemonAbilitiesUseCase
+
+  @Binds
+  @Singleton
+  internal abstract fun provideGetEvolutionChainUseCase(
+    getEvolutionChainUseCaseImpl: GetEvolutionChainUseCaseImpl
+  ): GetEvolutionChainUseCase
 }
