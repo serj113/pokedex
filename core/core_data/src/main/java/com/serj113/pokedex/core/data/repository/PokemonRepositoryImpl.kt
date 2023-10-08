@@ -3,6 +3,7 @@ package com.serj113.pokedex.core.data.repository
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.model.ApiResult
+import com.serj113.pokedex.core.model.EvolutionChainResponse
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
@@ -25,6 +26,7 @@ class PokemonRepositoryImpl @Inject constructor(
   private var pokemonSpeciesHashMap = hashMapOf<Int, PokemonSpeciesResponse>()
   private var pokemonAbilityHashMap = hashMapOf<Int, PokemonAbilityResponse>()
   private var pokemonMoveHashMap = hashMapOf<Int, PokemonMoveResponse>()
+  private var evolutionChainHashMap = hashMapOf<Int, EvolutionChainResponse>()
 
   override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
     return try {
@@ -165,6 +167,25 @@ class PokemonRepositoryImpl @Inject constructor(
 
       is ApiResult.Error -> {
 
+      }
+    }
+  }
+
+  override suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse> {
+    return evolutionChainHashMap[id]?.let { response ->
+      ApiResult.Success(response)
+    } ?: run {
+      try {
+        val response = service.getEvolutionChain(id)
+        val body = response.body()
+        if (body != null && response.isSuccessful) {
+          evolutionChainHashMap[id] = body
+          ApiResult.Success(body)
+        } else {
+          ApiResult.Error()
+        }
+      } catch (e: Exception) {
+        ApiResult.Error(e)
       }
     }
   }

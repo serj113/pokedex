@@ -1,6 +1,7 @@
 package com.serj113.pokedex.core.domain.repository
 
 import com.serj113.pokedex.core.model.ApiResult
+import com.serj113.pokedex.core.model.EvolutionChainResponse
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
@@ -25,4 +26,6 @@ interface PokemonRepository {
   suspend fun fetchPokemonMove(id: Int): ApiResult<PokemonMoveResponse>
 
   suspend fun loadPokemonColor()
+
+  suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse>
 }
