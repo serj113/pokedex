@@ -1,4 +1,4 @@
-package com.serj113.pokedex.feature.pokemonlist.util
+package com.serj113.pokedex.core.model.utils
 
 object Urls {
   private const val BASE_SPRITE_IMAGE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"

@@ -26,8 +26,9 @@ fun PokemonDetailContent(
   ) {
     Column {
       AttributeRow(viewState = viewState)
-      AbilityColumn(viewState = viewState)
       StatusColumn(viewState = viewState)
+      EvolutionChain(viewState = viewState)
+      AbilityColumn(viewState = viewState)
       MoveColumn(viewState = viewState)
     }
   }

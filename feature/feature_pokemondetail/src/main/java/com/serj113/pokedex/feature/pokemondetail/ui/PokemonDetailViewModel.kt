@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.common.presentation.PokemonColor
+import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonAbilitiesUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
@@ -31,6 +32,7 @@ class PokemonDetailViewModel @Inject constructor(
   private val pokemonColorUseCase: GetPokemonColorWithSpeciesIdUseCase,
   private val pokemonAbilitiesUseCase: GetPokemonAbilitiesUseCase,
   private val pokemonMovesUseCase: GetPokemonMovesWithPokemonIdUseCase,
+  private val evolutionChainUseCase: GetEvolutionChainUseCase,
 ) : ViewModel(), IPokemonDetailViewModel {
 
   private val _viewState = MutableStateFlow(PokemonDetail.ViewState())
@@ -56,6 +58,7 @@ class PokemonDetailViewModel @Inject constructor(
         getPokemonDetail(pokemonId)
         getPokemonAbilities(pokemonId)
         getPokemonMoves(pokemonId)
+        getEvolutionChain(pokemonId)
       }
       PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
         _uiEvent.send(PokemonDetail.Event.GoBack)
@@ -115,7 +118,6 @@ class PokemonDetailViewModel @Inject constructor(
               pokemonMoves = moves.value,
             )
           }
-          moves.value
         }
         is ApiResult.Error -> { }
       }
@@ -134,6 +136,21 @@ class PokemonDetailViewModel @Inject constructor(
 
       is ApiResult.Error -> {
 
+      }
+    }
+  }
+
+  private fun getEvolutionChain(pokemonId: Int) {
+    viewModelScope.launch {
+      when (val evolutionChain = evolutionChainUseCase(pokemonId)) {
+        is ApiResult.Success -> {
+          _viewState.update { viewState ->
+            viewState.copy(
+              evolutionChain = evolutionChain.value,
+            )
+          }
+        }
+        is ApiResult.Error -> { }
       }
     }
   }
