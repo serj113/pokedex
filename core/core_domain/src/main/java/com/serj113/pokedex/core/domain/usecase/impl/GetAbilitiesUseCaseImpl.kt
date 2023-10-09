@@ -1,17 +1,17 @@
 package com.serj113.pokedex.core.domain.usecase.impl
 
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
-import com.serj113.pokedex.core.domain.usecase.GetPokemonAbilitiesUseCase
+import com.serj113.pokedex.core.domain.usecase.GetAbilitiesUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.utils.getAbilityId
 import javax.inject.Inject
 
-class GetPokemonAbilitiesUseCaseImpl @Inject constructor(
+class GetAbilitiesUseCaseImpl @Inject constructor(
   private val pokemonRepository: PokemonRepository,
   private val getPokemonDetailUseCase: GetPokemonDetailUseCase,
-) : GetPokemonAbilitiesUseCase {
+) : GetAbilitiesUseCase {
   override suspend fun invoke(id: Int): ApiResult<List<PokemonAbilityResponse>> {
     val moves = mutableListOf<PokemonAbilityResponse>()
     when (val pokemonDetail = getPokemonDetailUseCase(id)) {
