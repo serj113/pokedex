@@ -59,8 +59,7 @@ internal fun PokemonDetailScreen(
       ) { innerPadding ->
         Column(
           modifier = Modifier
-            .padding(innerPadding)
-            .verticalScroll(rememberScrollState()),
+            .padding(innerPadding),
         ) {
           PokemonDetailHeader(viewState = viewState)
           PokemonDetailContent(viewState = viewState)
