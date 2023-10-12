@@ -1,10 +1,15 @@
 package com.serj113.pokedex.feature.pokemondetail.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,25 +27,42 @@ import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 fun PokemonDetailContent(
   viewState: PokemonDetail.ViewState,
 ) {
-  var tabIndex by remember { mutableStateOf(0) }
-  TabRow(
-    selectedTabIndex = tabIndex
-  ) {
-    
-  }
   Card(
     modifier = Modifier
-      .padding(start = 16.dp, end = 16.dp),
+      .padding(start = 16.dp, end = 16.dp)
+      .fillMaxSize(),
     colors = CardDefaults.cardColors(
       containerColor = ComposeColor.white,
     )
   ) {
     Column {
-      AttributeRow(viewState = viewState)
-      StatusColumn(viewState = viewState)
-      EvolutionChain(viewState = viewState)
-      AbilityColumn(viewState = viewState)
-      MoveColumn(viewState = viewState)
+      var tabIndex by remember { mutableStateOf(0) }
+      val tabs = listOf("Status", "Evolution", "Abilities", "Moves")
+      TabRow(
+        selectedTabIndex = tabIndex
+      ) {
+        tabs.forEachIndexed { index, tab ->
+          Tab(
+            selected = index == tabIndex,
+            onClick = {
+              tabIndex = index
+            },
+            text = {
+              Text(tab)
+            },
+          )
+        }
+      }
+      Spacer(
+        modifier = Modifier
+          .height(4.dp)
+      )
+      when (tabIndex) {
+        0 -> StatusScreen(viewState = viewState)
+        1 -> EvolutionScreen(viewState = viewState)
+        2 -> AbilitiesScreen(viewState = viewState)
+        else -> MovesScreen(viewState = viewState)
+      }
     }
   }
 }
