@@ -12,7 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
 
 @Composable
-fun AbilityColumn(viewState: PokemonDetail.ViewState) {
+fun AbilitiesScreen(
+  viewState: PokemonDetail.ViewState,
+) {
   Column(
     modifier = Modifier
       .wrapContentHeight()

@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.common.presentation.PokemonColor
 import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
-import com.serj113.pokedex.core.domain.usecase.GetPokemonAbilitiesUseCase
-import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithSpeciesIdUseCase
+import com.serj113.pokedex.core.domain.usecase.GetAbilitiesUseCase
+import com.serj113.pokedex.core.domain.usecase.GetColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
-import com.serj113.pokedex.core.domain.usecase.GetPokemonMovesWithPokemonIdUseCase
+import com.serj113.pokedex.core.domain.usecase.GetMovesWithIdUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.utils.getSpeciesId
 import com.serj113.pokedex.feature.pokemondetail.data.PokemonDetail
@@ -29,9 +29,9 @@ import javax.inject.Inject
 class PokemonDetailViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val useCase: GetPokemonDetailUseCase,
-  private val pokemonColorUseCase: GetPokemonColorWithSpeciesIdUseCase,
-  private val pokemonAbilitiesUseCase: GetPokemonAbilitiesUseCase,
-  private val pokemonMovesUseCase: GetPokemonMovesWithPokemonIdUseCase,
+  private val pokemonColorUseCase: GetColorWithSpeciesIdUseCase,
+  private val pokemonAbilitiesUseCase: GetAbilitiesUseCase,
+  private val pokemonMovesUseCase: GetMovesWithIdUseCase,
   private val evolutionChainUseCase: GetEvolutionChainUseCase,
 ) : ViewModel(), IPokemonDetailViewModel {
 

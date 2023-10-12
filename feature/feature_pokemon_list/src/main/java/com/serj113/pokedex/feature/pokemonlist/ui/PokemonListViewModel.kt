@@ -3,7 +3,7 @@ package com.serj113.pokedex.feature.pokemonlist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serj113.pokedex.common.presentation.PokemonColor
-import com.serj113.pokedex.core.domain.usecase.GetPokemonColorWithPokemonIdUseCase
+import com.serj113.pokedex.core.domain.usecase.GetColorWithIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.DataItem
@@ -25,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
   private val useCase: GetPokemonListUseCase,
-  private val pokemonColorUseCase: GetPokemonColorWithPokemonIdUseCase,
+  private val pokemonColorUseCase: GetColorWithIdUseCase,
 ) : ViewModel(), IPokemonListViewModel {
 
   private val _viewState = MutableStateFlow(PokemonList.ViewState())
