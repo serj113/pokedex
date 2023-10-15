@@ -32,4 +32,6 @@ android {
 dependencies {
   testImplementation(libs.junit)
   testImplementation(libs.mockk)
+  testImplementation(libs.elmyr)
+  testImplementation(libs.kotest)
 }
