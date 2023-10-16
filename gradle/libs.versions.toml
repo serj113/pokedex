@@ -30,6 +30,7 @@ junit = "4.13.2"
 mockk = "1.13.8"
 elmyr = "1.4.0"
 kotest = "5.7.3"
+coroutine-test = "1.7.3"
 
 # android test
 junit-ext = "1.1.3"
@@ -101,6 +102,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 elmyr = { module = "com.github.xgouchet.Elmyr:junit4", version.ref = "elmyr" }
 kotest = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine.test" }
 
 # hilt test
 hilt-test = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }

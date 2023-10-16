@@ -34,4 +34,5 @@ dependencies {
   testImplementation(libs.mockk)
   testImplementation(libs.elmyr)
   testImplementation(libs.kotest)
+  testImplementation(libs.coroutine.test)
 }
