@@ -40,5 +40,7 @@ dependencies {
   kapt(libs.hilt.kapt)
 
   // test
+  testImplementation(project(":core_test"))
   testImplementation(libs.junit)
+  testImplementation(libs.kotest)
 }

@@ -6,20 +6,17 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.Rule
 import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 
-class BaseTest {
-  @get:Rule
-  val instantExecutor = InstantTaskExecutorRule()
-
+open class BaseTest {
   @BeforeEach
-  fun setup() {
+  open fun setup() {
     Dispatchers.setMain(StandardTestDispatcher())
   }
 
   @AfterEach
-  fun tearDown() {
+  open fun tearDown() {
     Dispatchers.resetMain()
   }
-
-  @Test
 }

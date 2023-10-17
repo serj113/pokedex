@@ -30,9 +30,13 @@ android {
 }
 
 dependencies {
-  testImplementation(libs.junit)
-  testImplementation(libs.mockk)
-  testImplementation(libs.elmyr)
-  testImplementation(libs.kotest)
-  testImplementation(libs.coroutine.test)
+  testRuntimeOnly(libs.junit5.jupiter.engine)
+
+  api(libs.junit)
+  api(libs.mockk)
+  api(libs.elmyr)
+  api(libs.kotest)
+  api(libs.coroutine.test)
+  api(libs.junit5.jupiter.api)
+  api(libs.junit5.jupiter.params)
 }
