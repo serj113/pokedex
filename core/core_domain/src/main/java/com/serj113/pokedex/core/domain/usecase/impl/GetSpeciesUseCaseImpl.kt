@@ -7,9 +7,9 @@ import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import javax.inject.Inject
 
 class GetSpeciesUseCaseImpl @Inject constructor(
-  private val pokemonRepository: PokemonRepository,
+  private val repository: PokemonRepository,
 ) : GetSpeciesUseCase {
   override suspend fun invoke(id: Int): ApiResult<PokemonSpeciesResponse> {
-    return pokemonRepository.fetchPokemonSpecies(id)
+    return repository.fetchPokemonSpecies(id)
   }
 }
