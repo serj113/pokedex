@@ -1,7 +1,7 @@
-package com.serj113.pokedex.core.domain.usecase
+package com.serj113.pokedex.core.data.repository
 
+import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
-import com.serj113.pokedex.core.domain.usecase.impl.GetSpeciesUseCaseImpl
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import com.serj113.pokedex.core.test.BaseTest
@@ -13,32 +13,31 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import retrofit2.Response
 
 @ExtendWith(MockKExtension::class)
-class GetSpeciesUseCaseTest : BaseTest() {
+class PokemonRepositoryTest : BaseTest() {
 
   @MockK
-  private lateinit var repository: PokemonRepository
+  private lateinit var service: PokemonService
 
-  private lateinit var useCase: GetSpeciesUseCase
+  private lateinit var repository: PokemonRepository
 
   @BeforeEach
   override fun setup() {
     super.setup()
-    useCase = GetSpeciesUseCaseImpl(
-      repository = repository,
+    repository = PokemonRepositoryImpl(
+      service = service
     )
   }
 
   @Test
-  fun testInvoke() = runTest {
+  fun testFetchPokemonSpecies() = runTest {
     val response = PokemonSpeciesResponse()
-    coEvery { repository.fetchPokemonSpecies(any()) } returns ApiResult.Success(
-      PokemonSpeciesResponse()
-    )
+    coEvery { service.getPokemonSpecies(any()) } returns Response.success(response)
 
-    val useCaseResult = useCase(1)
+    val serviceResponse = repository.fetchPokemonSpecies(1)
 
-    (useCaseResult as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
   }
 }
