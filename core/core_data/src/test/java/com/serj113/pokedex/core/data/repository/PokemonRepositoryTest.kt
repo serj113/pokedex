@@ -5,6 +5,8 @@ import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
+import com.serj113.pokedex.core.model.PokemonColorListResponse
+import com.serj113.pokedex.core.model.PokemonDetailResponse
 import com.serj113.pokedex.core.model.PokemonMoveResponse
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import com.serj113.pokedex.core.test.BaseTest
@@ -32,6 +34,26 @@ class PokemonRepositoryTest : BaseTest() {
     repository = PokemonRepositoryImpl(
       service = service
     )
+  }
+
+  @Test
+  fun testFetchPokemonDetail() = runTest {
+    val response = PokemonDetailResponse()
+    coEvery { service.getPokemonDetail(any()) } returns Response.success(response)
+
+    val serviceResponse = repository.fetchPokemonDetail(1)
+
+    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+  }
+
+  @Test
+  fun testfetchPokemonColorList() = runTest {
+    val response = PokemonColorListResponse()
+    coEvery { service.getPokemonColorList() } returns Response.success(response)
+
+    val serviceResponse = repository.fetchPokemonColorList()
+
+    (serviceResponse as? ApiResult.Success)?.value?.count shouldBe response.count
   }
 
   @Test
