@@ -20,6 +20,8 @@ include ':core_model'
 project(':core_model').projectDir = new File("./core/core_model")
 include ':core_domain'
 project(':core_domain').projectDir = new File("./core/core_domain")
+include ':core_test'
+project(':core_test').projectDir = new File("./core/core_test")
 include ':common_navigation'
 project(':common_navigation').projectDir = new File("./common/common_navigation")
 include ':common_presentation'

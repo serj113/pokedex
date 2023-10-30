@@ -1,12 +1,10 @@
 plugins {
-  id(libs.plugins.android.library.get().pluginId)
-  id(libs.plugins.kotlin.android.get().pluginId)
-  id(libs.plugins.kotlin.kapt.get().pluginId)
-  id(libs.plugins.hilt.get().pluginId)
+  alias(libs.plugins.android.library)
+  alias(libs.plugins.kotlin.android)
 }
 
 android {
-  namespace = "com.serj113.core.domain"
+  namespace = "com.serj113.pokedex.core.test"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
@@ -29,21 +27,16 @@ android {
   kotlinOptions {
     jvmTarget = "17"
   }
-  tasks.withType<Test> {
-    useJUnitPlatform()
-  }
 }
 
 dependencies {
-  implementation(project(":core_model"))
-  implementation(libs.kotlin.stdlib)
+  testRuntimeOnly(libs.junit5.jupiter.engine)
 
-  // hilt
-  implementation(libs.hilt)
-  kapt(libs.hilt.kapt)
-
-  // test
-  testImplementation(project(":core_test"))
-  testImplementation(libs.junit)
-  testImplementation(libs.kotest)
+  api(libs.junit)
+  api(libs.mockk)
+  api(libs.elmyr)
+  api(libs.kotest)
+  api(libs.coroutine.test)
+  api(libs.junit5.jupiter.api)
+  api(libs.junit5.jupiter.params)
 }
