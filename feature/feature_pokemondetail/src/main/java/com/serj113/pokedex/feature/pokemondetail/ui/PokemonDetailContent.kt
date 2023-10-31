@@ -76,14 +76,16 @@ fun PreviewPokemonDetailContent() {
         weight = 10,
         height = 10,
       ),
-      pokemonMoves = listOf(
-        PokemonMoveResponse(
-          name = "Swift Slash",
-          pp = 15,
-        ),
-        PokemonMoveResponse(
-          name = "Thunder Clap",
-          pp = 20,
+      movesViewState = PokemonDetail.MovesViewState.Loaded(
+        moves = listOf(
+          PokemonMoveResponse(
+            name = "Swift Slash",
+            pp = 15,
+          ),
+          PokemonMoveResponse(
+            name = "Thunder Clap",
+            pp = 20,
+          ),
         ),
       ),
     )
