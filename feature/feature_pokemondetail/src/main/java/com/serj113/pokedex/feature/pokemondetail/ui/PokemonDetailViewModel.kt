@@ -115,7 +115,9 @@ class PokemonDetailViewModel @Inject constructor(
         is ApiResult.Success -> {
           _viewState.update { viewState ->
             viewState.copy(
-              pokemonMoves = moves.value,
+              movesViewState = PokemonDetail.MovesViewState.Loaded(
+                moves = moves.value,
+              )
             )
           }
         }

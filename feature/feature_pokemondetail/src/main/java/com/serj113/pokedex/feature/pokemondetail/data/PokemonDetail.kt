@@ -15,9 +15,14 @@ object PokemonDetail {
     val pokemonColor: Color = ComposeColor.white,
     val pokemonDetail: PokemonDetailResponse = PokemonDetailResponse(),
     val abilities: List<PokemonAbilityResponse> = listOf(),
-    val pokemonMoves: List<PokemonMoveResponse> = listOf(),
+    val movesViewState: MovesViewState = MovesViewState.Loading,
     val evolutionChain: EvolutionChainResponse = EvolutionChainResponse(),
   )
+
+  sealed interface MovesViewState {
+    data class Loaded(val moves: List<PokemonMoveResponse>) : MovesViewState
+    object Loading : MovesViewState
+  }
 
   sealed class Action {
     object InnitPage : Action()
