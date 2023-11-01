@@ -11,6 +11,7 @@ object PokemonList {
     val pokemonColor: HashMap<Int, Color> = hashMapOf(),
     val page: Int = 1,
     val hasNext: Boolean = false,
+    val isLoading: Boolean = false,
   )
 
   sealed class Event {

@@ -8,7 +8,6 @@ import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
-import com.serj113.pokedex.common.presentation.R as RPresentation
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -59,12 +58,18 @@ class PokemonListViewModel @Inject constructor(
   private fun fetchPokemonList() {
     if (fetchJob?.isCompleted == false) return
     fetchJob = viewModelScope.launch {
+      _viewState.update {  viewState ->
+        viewState.copy(
+          isLoading = true
+        )
+      }
       when (val result = useCase(_viewState.value.page)) {
         is ApiResult.Success -> {
           _viewState.update { viewState ->
             viewState.copy(
               pokemonList = viewState.pokemonList.plus(result.value.results),
-              page = viewState.page + 1
+              page = viewState.page + 1,
+              isLoading = false
             )
           }
           bulkFetchColor(result.value.results)

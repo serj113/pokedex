@@ -1,5 +1,8 @@
 package com.serj113.pokedex.feature.pokemonlist.ui
 
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -9,6 +12,7 @@ import androidx.navigation.NavHostController
 import com.serj113.pokedex.common.navigation.PathGenerator
 import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonListFragment(navController: NavHostController) {
   val viewModel: PokemonListViewModel = hiltViewModel()
@@ -23,5 +27,9 @@ fun PokemonListFragment(navController: NavHostController) {
     }
   }
   viewModel.uiAction.trySend(PokemonList.Action.FetchNextPage)
-  PokemonListScreen(viewState = viewState, viewModel = viewModel)
+  MaterialTheme {
+    Scaffold { _ ->
+      PokemonListScreen(viewState = viewState, viewModel = viewModel)
+    }
+  }
 }
