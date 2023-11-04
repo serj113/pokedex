@@ -9,6 +9,7 @@ androidx-kotlin = "1.8.0"
 
 # view
 compose = "2022.10.00"
+compose-ui-graphics-android = "1.5.4"
 lifecycle = "2.3.1"
 activity = "1.6.1"
 appcompat = "1.6.1"
@@ -80,6 +81,7 @@ compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose"
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "compose.ui.graphics.android" }
 compose-material = { module = "androidx.compose.material3:material3" }
 
 # compose: debug
