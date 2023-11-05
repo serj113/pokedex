@@ -2,6 +2,7 @@ package com.serj113.pokedex.common.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun CollapsibleTitleSection(
   modifier: Modifier = Modifier,
   isExpanded: Boolean = false,
-  title: String
+  content: @Composable RowScope.() -> Unit,
 ) {
 
   val icon = if (isExpanded) {
@@ -27,15 +28,15 @@ fun CollapsibleTitleSection(
   } else Icons.Rounded.KeyboardArrowDown
 
   Row(
-    modifier = modifier.padding(8.dp),
+    modifier = modifier,
     verticalAlignment = Alignment.CenterVertically
   ) {
     Image(
       modifier = Modifier.size(32.dp),
       imageVector = icon,
       colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimaryContainer),
-      contentDescription = stringResource(id = R.string.expand_or_collapse)
+      contentDescription = null,
     )
-    Text(text = title, style = MaterialTheme.typography.headlineMedium)
+    content()
   }
 }

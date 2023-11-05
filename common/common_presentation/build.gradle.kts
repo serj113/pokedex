@@ -48,5 +48,5 @@ dependencies {
   implementation(libs.compose.ui.graphics)
   implementation(libs.compose.ui.tooling)
   implementation(libs.compose.material)
-  implementation(libs.compose.ui.graphics.android)
+  implementation(libs.compose.ui.graphics)
 }
