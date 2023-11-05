@@ -32,7 +32,7 @@ fun MovesScreen(
     when (val movesViewState = viewState.movesViewState) {
       is PokemonDetail.MovesViewState.Loaded -> {
         movesViewState.moves.mapIndexed { index, move ->
-          MoveItem(move = move)
+          CollapsibleMoveItem(move = move)
           if (index != movesViewState.moves.lastIndex) {
             Spacer(modifier = Modifier.height(4.dp))
           }

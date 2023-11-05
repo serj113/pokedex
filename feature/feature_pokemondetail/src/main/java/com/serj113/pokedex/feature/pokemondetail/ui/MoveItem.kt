@@ -1,8 +1,6 @@
 package com.serj113.pokedex.feature.pokemondetail.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.common.presentation.PokemonType
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.PokemonMoveResponse
@@ -24,13 +21,7 @@ import com.serj113.pokedex.core.model.PokemonMoveResponse
 fun MoveItem(move: PokemonMoveResponse) {
   ConstraintLayout(
     modifier = Modifier
-      .fillMaxWidth()
-      .clip(RoundedCornerShape(8.dp))
-      .border(
-        border = BorderStroke(1.dp, ComposeColor.black),
-        shape = RoundedCornerShape(8.dp),
-      )
-      .padding(4.dp),
+      .fillMaxWidth(),
   ) {
     val (name, pp, type) = createRefs()
     Text(
