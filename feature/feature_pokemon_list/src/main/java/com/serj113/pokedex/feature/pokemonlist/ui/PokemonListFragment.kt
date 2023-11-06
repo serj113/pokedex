@@ -18,7 +18,7 @@ fun PokemonListFragment(navController: NavHostController) {
   val viewModel: PokemonListViewModel = hiltViewModel()
   val viewState by viewModel.viewStateFlow.collectAsState()
   LaunchedEffect(key1 = Unit) {
-    viewModel.eventFlow.collect { event ->
+    viewModel.uiEvent.collect { event ->
       when(event) {
         is PokemonList.Event.GoToDetail -> {
           navController.navigate(PathGenerator.getPokemonDetailPath(event.pokemonId))
@@ -26,7 +26,6 @@ fun PokemonListFragment(navController: NavHostController) {
       }
     }
   }
-  viewModel.uiAction.trySend(PokemonList.Action.FetchNextPage)
   MaterialTheme {
     Scaffold { _ ->
       PokemonListScreen(viewState = viewState, viewModel = viewModel)

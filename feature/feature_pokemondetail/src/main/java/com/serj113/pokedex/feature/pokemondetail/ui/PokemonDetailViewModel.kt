@@ -41,7 +41,7 @@ class PokemonDetailViewModel @Inject constructor(
   override val uiAction = Channel<PokemonDetail.Action>(Channel.BUFFERED)
 
   private val _uiEvent = Channel<PokemonDetail.Event>(Channel.BUFFERED)
-  val uiEventFlow: Flow<PokemonDetail.Event> = _uiEvent.receiveAsFlow()
+  val uiEvent = _uiEvent.receiveAsFlow()
 
   init {
     uiAction.receiveAsFlow()

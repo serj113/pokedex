@@ -32,7 +32,11 @@ fun MainScreen() {
           navArgument("pokemonId") { type = NavType.IntType },
         ),
       ) {
-        PokemonDetailFragment()
+        PokemonDetailFragment(
+          onBackPress = {
+            navController.popBackStack()
+          }
+        )
       }
     }
   }
