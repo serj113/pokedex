@@ -30,8 +30,8 @@ class PokemonListViewModel @Inject constructor(
   private val _viewState = MutableStateFlow(PokemonList.ViewState())
   val viewStateFlow: StateFlow<PokemonList.ViewState> = _viewState
 
-  private val _event = Channel<PokemonList.Event>(Channel.BUFFERED)
-  val eventFlow = _event.receiveAsFlow()
+  private val _uiEvent = Channel<PokemonList.Event>(Channel.BUFFERED)
+  val uiEvent = _uiEvent.receiveAsFlow()
 
   override val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
 
@@ -39,14 +39,15 @@ class PokemonListViewModel @Inject constructor(
 
   init {
     uiAction.receiveAsFlow().onEach { action ->
-        onUiAction(action)
-      }.launchIn(viewModelScope)
+      onUiAction(action)
+    }.launchIn(viewModelScope)
+    fetchPokemonList()
   }
 
   private fun onUiAction(action: PokemonList.Action) {
     when (action) {
       is PokemonList.Action.OnClickItem -> {
-        _event.trySend(PokemonList.Event.GoToDetail(action.pokemonId))
+        _uiEvent.trySend(PokemonList.Event.GoToDetail(action.pokemonId))
       }
 
       PokemonList.Action.FetchNextPage -> {
@@ -58,7 +59,7 @@ class PokemonListViewModel @Inject constructor(
   private fun fetchPokemonList() {
     if (fetchJob?.isCompleted == false) return
     fetchJob = viewModelScope.launch {
-      _viewState.update {  viewState ->
+      _viewState.update { viewState ->
         viewState.copy(
           isLoading = true
         )
