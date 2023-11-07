@@ -1,5 +1,8 @@
 package com.serj113.pokedex.core.data.repository
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.model.ApiResult
@@ -28,17 +31,17 @@ class PokemonRepositoryImpl @Inject constructor(
   private var pokemonMoveHashMap = hashMapOf<Int, PokemonMoveResponse>()
   private var evolutionChainHashMap = hashMapOf<Int, EvolutionChainResponse>()
 
-  override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
+  override suspend fun fetchPokemonList(offset: Int?, limit: Int?): Either<PokemonListResponse, Exception> {
     return try {
       val response = service.getPokemonList(offset, limit)
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 

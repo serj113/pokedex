@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.domain.repository
 
+import arrow.core.Either
 import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.EvolutionChainResponse
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
@@ -11,7 +12,8 @@ import com.serj113.pokedex.core.model.PokemonMoveResponse
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 
 interface PokemonRepository {
-  suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse>
+
+  suspend fun fetchPokemonList(offset: Int?, limit: Int?): Either<PokemonListResponse, Exception>
 
   suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse>
 
