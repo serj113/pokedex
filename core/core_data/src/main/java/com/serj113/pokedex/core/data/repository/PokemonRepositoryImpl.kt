@@ -45,21 +45,21 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse> {
+  override suspend fun fetchPokemonDetail(id: Int): Either<PokemonDetailResponse, Exception> {
     return pokemonDetailHashMap[id]?.let { pokemonDetailResponse ->
-      ApiResult.Success(pokemonDetailResponse)
+      pokemonDetailResponse.left()
     } ?: run {
       try {
         val response = service.getPokemonDetail(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonDetailHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }

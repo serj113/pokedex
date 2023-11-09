@@ -15,7 +15,7 @@ interface PokemonRepository {
 
   suspend fun fetchPokemonList(offset: Int?, limit: Int?): Either<PokemonListResponse, Exception>
 
-  suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse>
+  suspend fun fetchPokemonDetail(id: Int): Either<PokemonDetailResponse, Exception>
 
   suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse>
 
