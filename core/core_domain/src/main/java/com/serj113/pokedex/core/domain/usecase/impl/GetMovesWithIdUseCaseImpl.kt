@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.domain.usecase.impl
 
+import arrow.core.Either
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetMovesWithIdUseCase
@@ -15,7 +16,7 @@ class GetMovesWithIdUseCaseImpl @Inject constructor(
   override suspend fun invoke(id: Int): ApiResult<List<PokemonMoveResponse>> {
     val moves = mutableListOf<PokemonMoveResponse>()
     when (val pokemonDetail = getPokemonDetailUseCase(id)) {
-      is ApiResult.Success -> {
+      is Either.Left -> {
         moves.addAll(
           pokemonDetail.value.moves
             .map { move ->
@@ -26,7 +27,7 @@ class GetMovesWithIdUseCaseImpl @Inject constructor(
         )
       }
 
-      is ApiResult.Error -> { }
+      is Either.Right -> {}
     }
 
     return ApiResult.Success(moves)

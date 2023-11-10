@@ -60,12 +60,16 @@ dependencies {
   implementation(libs.compose.material)
   implementation(libs.constraintlayout.compose)
 
-  // debug
-  debugImplementation(libs.debug.compose.ui.tooling)
-
   // hilt
   implementation(libs.hilt)
   kapt(libs.hilt.kapt)
+
+  // arrow
+  implementation(libs.arrow.core)
+  implementation(libs.arrow.fx.coroutines)
+
+  // debug
+  debugImplementation(libs.debug.compose.ui.tooling)
 
   // test
   testImplementation(libs.junit)

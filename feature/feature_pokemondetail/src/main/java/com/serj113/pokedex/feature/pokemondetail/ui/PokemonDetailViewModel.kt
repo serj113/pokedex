@@ -60,9 +60,11 @@ class PokemonDetailViewModel @Inject constructor(
         getPokemonMoves(pokemonId)
         getEvolutionChain(pokemonId)
       }
+
       PokemonDetail.Action.OnBackPressed -> viewModelScope.launch {
         _uiEvent.send(PokemonDetail.Event.GoBack)
       }
+
       PokemonDetail.Action.OnFavoritePressed -> {
 
       }
@@ -77,7 +79,8 @@ class PokemonDetailViewModel @Inject constructor(
         )
       }
       when (val result = useCase(pokemonId)) {
-        is ApiResult.Success -> {
+
+        is arrow.core.Either.Left -> {
           _viewState.update { viewState ->
             viewState.copy(
               pokemonDetail = result.value
@@ -86,9 +89,7 @@ class PokemonDetailViewModel @Inject constructor(
           getPokemonColor(result.value.species.getSpeciesId())
         }
 
-        is ApiResult.Error -> {
-
-        }
+        is arrow.core.Either.Right -> {}
       }
     }
   }
@@ -104,7 +105,8 @@ class PokemonDetailViewModel @Inject constructor(
           }
           abilities.value
         }
-        is ApiResult.Error -> { }
+
+        is ApiResult.Error -> {}
       }
     }
   }
@@ -121,7 +123,8 @@ class PokemonDetailViewModel @Inject constructor(
             )
           }
         }
-        is ApiResult.Error -> { }
+
+        is ApiResult.Error -> {}
       }
     }
   }
@@ -152,7 +155,8 @@ class PokemonDetailViewModel @Inject constructor(
             )
           }
         }
-        is ApiResult.Error -> { }
+
+        is ApiResult.Error -> {}
       }
     }
   }
