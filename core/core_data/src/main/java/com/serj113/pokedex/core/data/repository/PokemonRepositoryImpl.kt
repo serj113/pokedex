@@ -92,21 +92,21 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse> {
+  override suspend fun fetchPokemonSpecies(id: Int): Either<PokemonSpeciesResponse, Exception> {
     return pokemonSpeciesHashMap[id]?.let { pokemonSpeciesResponse ->
-      ApiResult.Success(pokemonSpeciesResponse)
+      pokemonSpeciesResponse.left()
     } ?: run {
       try {
         val response = service.getPokemonSpecies(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonSpeciesHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }

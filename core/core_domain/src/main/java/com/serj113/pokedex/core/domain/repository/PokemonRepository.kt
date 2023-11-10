@@ -21,7 +21,7 @@ interface PokemonRepository {
 
   suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse>
 
-  suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse>
+  suspend fun fetchPokemonSpecies(id: Int): Either<PokemonSpeciesResponse, Exception>
 
   suspend fun fetchPokemonAbility(id: Int): ApiResult<PokemonAbilityResponse>
 

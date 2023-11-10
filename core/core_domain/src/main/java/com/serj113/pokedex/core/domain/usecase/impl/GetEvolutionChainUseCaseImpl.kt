@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.domain.usecase.impl
 
+import arrow.core.Either
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
 import com.serj113.pokedex.core.domain.usecase.GetSpeciesUseCase
@@ -14,11 +15,11 @@ class GetEvolutionChainUseCaseImpl @Inject constructor(
 ) : GetEvolutionChainUseCase {
   override suspend fun invoke(id: Int): ApiResult<EvolutionChainResponse> {
     return when (val species = getPokemonSpeciesUseCase(id)) {
-      is ApiResult.Success -> pokemonRepository.fetchEvolutionChain(
+      is Either.Left -> pokemonRepository.fetchEvolutionChain(
         id = species.value.evolutionChain.getEvolutionChainId()
       )
 
-      is ApiResult.Error -> ApiResult.Error()
+      is Either.Right -> ApiResult.Error()
     }
   }
 }
