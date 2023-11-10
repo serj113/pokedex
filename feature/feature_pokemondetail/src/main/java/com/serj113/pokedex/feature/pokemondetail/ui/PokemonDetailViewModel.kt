@@ -3,6 +3,7 @@ package com.serj113.pokedex.feature.pokemondetail.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.Either
 import com.serj113.pokedex.common.navigation.Parameter
 import com.serj113.pokedex.common.presentation.PokemonColor
 import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
@@ -97,7 +98,7 @@ class PokemonDetailViewModel @Inject constructor(
   private fun getPokemonAbilities(pokemonId: Int) {
     viewModelScope.launch {
       when (val abilities = pokemonAbilitiesUseCase(pokemonId)) {
-        is ApiResult.Success -> {
+        is Either.Left -> {
           _viewState.update { viewState ->
             viewState.copy(
               abilities = abilities.value,
@@ -106,7 +107,7 @@ class PokemonDetailViewModel @Inject constructor(
           abilities.value
         }
 
-        is ApiResult.Error -> {}
+        is Either.Right -> {}
       }
     }
   }
@@ -114,7 +115,7 @@ class PokemonDetailViewModel @Inject constructor(
   private fun getPokemonMoves(pokemonId: Int) {
     viewModelScope.launch {
       when (val moves = pokemonMovesUseCase(pokemonId)) {
-        is ApiResult.Success -> {
+        is Either.Left -> {
           _viewState.update { viewState ->
             viewState.copy(
               movesViewState = PokemonDetail.MovesViewState.Loaded(
@@ -124,7 +125,7 @@ class PokemonDetailViewModel @Inject constructor(
           }
         }
 
-        is ApiResult.Error -> {}
+        is Either.Right -> {}
       }
     }
   }

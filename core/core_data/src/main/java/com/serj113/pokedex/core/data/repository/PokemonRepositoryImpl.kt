@@ -111,40 +111,40 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchPokemonAbility(id: Int): ApiResult<PokemonAbilityResponse> {
-    return pokemonAbilityHashMap[id]?.let { pokemonAbilityResponse ->
-      ApiResult.Success(pokemonAbilityResponse)
+  override suspend fun fetchPokemonAbility(id: Int): Either<PokemonAbilityResponse, Exception> {
+    return pokemonAbilityHashMap[id]?.let { ability ->
+      ability.left()
     } ?: run {
       try {
         val response = service.getPokemonAbility(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonAbilityHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
 
-  override suspend fun fetchPokemonMove(id: Int): ApiResult<PokemonMoveResponse> {
-    return pokemonMoveHashMap[id]?.let { pokemonMoveResponse ->
-      ApiResult.Success(pokemonMoveResponse)
+  override suspend fun fetchPokemonMove(id: Int): Either<PokemonMoveResponse, Exception> {
+    return pokemonMoveHashMap[id]?.let { move ->
+      move.left()
     } ?: run {
       try {
         val response = service.getPokemonMove(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonMoveHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
