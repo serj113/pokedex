@@ -174,21 +174,21 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse> {
-    return evolutionChainHashMap[id]?.let { response ->
-      ApiResult.Success(response)
+  override suspend fun fetchEvolutionChain(id: Int): Either<EvolutionChainResponse, Exception> {
+    return evolutionChainHashMap[id]?.let { chain ->
+      chain.left()
     } ?: run {
       try {
         val response = service.getEvolutionChain(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           evolutionChainHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }

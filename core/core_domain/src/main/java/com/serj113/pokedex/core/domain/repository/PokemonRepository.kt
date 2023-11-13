@@ -29,5 +29,5 @@ interface PokemonRepository {
 
   suspend fun loadPokemonColor()
 
-  suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse>
+  suspend fun fetchEvolutionChain(id: Int): Either<EvolutionChainResponse, Exception>
 }

@@ -149,7 +149,7 @@ class PokemonDetailViewModel @Inject constructor(
   private fun getEvolutionChain(pokemonId: Int) {
     viewModelScope.launch {
       when (val evolutionChain = evolutionChainUseCase(pokemonId)) {
-        is ApiResult.Success -> {
+        is Either.Left -> {
           _viewState.update { viewState ->
             viewState.copy(
               evolutionChain = evolutionChain.value,
@@ -157,7 +157,7 @@ class PokemonDetailViewModel @Inject constructor(
           }
         }
 
-        is ApiResult.Error -> {}
+        is Either.Right -> {}
       }
     }
   }
