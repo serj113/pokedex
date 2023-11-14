@@ -1,7 +1,6 @@
 package com.serj113.pokedex.core.domain.repository
 
 import arrow.core.Either
-import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.EvolutionChainResponse
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
@@ -17,9 +16,9 @@ interface PokemonRepository {
 
   suspend fun fetchPokemonDetail(id: Int): Either<PokemonDetailResponse, Exception>
 
-  suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse>
+  suspend fun fetchPokemonColorList(): Either<PokemonColorListResponse, Exception>
 
-  suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse>
+  suspend fun fetchPokemonColorDetail(id: Int): Either<PokemonColorDetailResponse, Exception>
 
   suspend fun fetchPokemonSpecies(id: Int): Either<PokemonSpeciesResponse, Exception>
 

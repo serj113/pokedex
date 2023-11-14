@@ -31,7 +31,10 @@ class PokemonRepositoryImpl @Inject constructor(
   private var pokemonMoveHashMap = hashMapOf<Int, PokemonMoveResponse>()
   private var evolutionChainHashMap = hashMapOf<Int, EvolutionChainResponse>()
 
-  override suspend fun fetchPokemonList(offset: Int?, limit: Int?): Either<PokemonListResponse, Exception> {
+  override suspend fun fetchPokemonList(
+    offset: Int?,
+    limit: Int?
+  ): Either<PokemonListResponse, Exception> {
     return try {
       val response = service.getPokemonList(offset, limit)
       val body = response.body()
@@ -64,31 +67,31 @@ class PokemonRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse> {
+  override suspend fun fetchPokemonColorList(): Either<PokemonColorListResponse, Exception> {
     return try {
       val response = service.getPokemonColorList()
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 
-  override suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse> {
+  override suspend fun fetchPokemonColorDetail(id: Int): Either<PokemonColorDetailResponse, Exception> {
     return try {
       val response = service.getPokemonColorDetail(id)
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 
@@ -151,26 +154,23 @@ class PokemonRepositoryImpl @Inject constructor(
 
   override suspend fun loadPokemonColor() {
     when (val result = fetchPokemonColorList()) {
-      is ApiResult.Success -> {
+      is Either.Left -> {
         result.value.results.forEach { pokemonColor ->
           val splits = pokemonColor.url.split("/")
           scope.launch {
             val colorId = splits[splits.count() - 2].toInt()
             when (val detailResult = fetchPokemonColorDetail(colorId)) {
-              is ApiResult.Success -> {
+              is Either.Left -> {
                 pokemonColorHashMap[colorId] = detailResult.value
               }
-              is ApiResult.Error -> {
 
-              }
+              is Either.Right -> {}
             }
           }
         }
       }
 
-      is ApiResult.Error -> {
-
-      }
+      is Either.Right -> {}
     }
   }
 
