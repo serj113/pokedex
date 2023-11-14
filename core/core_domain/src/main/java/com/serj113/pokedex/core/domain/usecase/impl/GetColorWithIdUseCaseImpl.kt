@@ -1,5 +1,6 @@
 package com.serj113.pokedex.core.domain.usecase.impl
 
+import arrow.core.Either
 import com.serj113.pokedex.core.domain.usecase.GetColorWithIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetColorWithSpeciesIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
@@ -13,10 +14,10 @@ class GetColorWithIdUseCaseImpl @Inject constructor(
 ) : GetColorWithIdUseCase {
   override suspend fun invoke(id: Int): ApiResult<String> {
     return when (val detailResult = getPokemonDetailUseCase(id)) {
-      is ApiResult.Success -> {
+      is Either.Left -> {
         getPokemonColorWithSpeciesIdUseCase(detailResult.value.species.getSpeciesId())
       }
-      is ApiResult.Error -> ApiResult.Error()
+      is Either.Right -> ApiResult.Error()
     }
   }
 }

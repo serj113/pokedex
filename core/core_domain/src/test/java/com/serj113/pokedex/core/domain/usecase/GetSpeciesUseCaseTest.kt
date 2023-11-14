@@ -1,8 +1,9 @@
 package com.serj113.pokedex.core.domain.usecase
 
+import arrow.core.Either
+import arrow.core.left
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.domain.usecase.impl.GetSpeciesUseCaseImpl
-import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 import com.serj113.pokedex.core.test.BaseTest
 import io.kotest.matchers.shouldBe
@@ -33,12 +34,10 @@ class GetSpeciesUseCaseTest : BaseTest() {
   @Test
   fun testInvoke() = runTest {
     val response = PokemonSpeciesResponse()
-    coEvery { repository.fetchPokemonSpecies(any()) } returns ApiResult.Success(
-      PokemonSpeciesResponse()
-    )
+    coEvery { repository.fetchPokemonSpecies(any()) } returns PokemonSpeciesResponse().left()
 
     val useCaseResult = useCase(1)
 
-    (useCaseResult as? ApiResult.Success)?.value?.id shouldBe response.id
+    (useCaseResult as? Either.Left<PokemonSpeciesResponse>)?.value?.id shouldBe response.id
   }
 }

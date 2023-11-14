@@ -1,5 +1,8 @@
 package com.serj113.pokedex.core.data.repository
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
 import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.model.ApiResult
@@ -28,164 +31,164 @@ class PokemonRepositoryImpl @Inject constructor(
   private var pokemonMoveHashMap = hashMapOf<Int, PokemonMoveResponse>()
   private var evolutionChainHashMap = hashMapOf<Int, EvolutionChainResponse>()
 
-  override suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse> {
+  override suspend fun fetchPokemonList(
+    offset: Int?,
+    limit: Int?
+  ): Either<PokemonListResponse, Exception> {
     return try {
       val response = service.getPokemonList(offset, limit)
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 
-  override suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse> {
+  override suspend fun fetchPokemonDetail(id: Int): Either<PokemonDetailResponse, Exception> {
     return pokemonDetailHashMap[id]?.let { pokemonDetailResponse ->
-      ApiResult.Success(pokemonDetailResponse)
+      pokemonDetailResponse.left()
     } ?: run {
       try {
         val response = service.getPokemonDetail(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonDetailHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
 
-  override suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse> {
+  override suspend fun fetchPokemonColorList(): Either<PokemonColorListResponse, Exception> {
     return try {
       val response = service.getPokemonColorList()
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 
-  override suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse> {
+  override suspend fun fetchPokemonColorDetail(id: Int): Either<PokemonColorDetailResponse, Exception> {
     return try {
       val response = service.getPokemonColorDetail(id)
       val body = response.body()
       if (body != null && response.isSuccessful) {
-        ApiResult.Success(body)
+        body.left()
       } else {
-        ApiResult.Error()
+        Exception(response.message()).right()
       }
     } catch (e: Exception) {
-      ApiResult.Error(e)
+      e.right()
     }
   }
 
-  override suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse> {
+  override suspend fun fetchPokemonSpecies(id: Int): Either<PokemonSpeciesResponse, Exception> {
     return pokemonSpeciesHashMap[id]?.let { pokemonSpeciesResponse ->
-      ApiResult.Success(pokemonSpeciesResponse)
+      pokemonSpeciesResponse.left()
     } ?: run {
       try {
         val response = service.getPokemonSpecies(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonSpeciesHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
 
-  override suspend fun fetchPokemonAbility(id: Int): ApiResult<PokemonAbilityResponse> {
-    return pokemonAbilityHashMap[id]?.let { pokemonAbilityResponse ->
-      ApiResult.Success(pokemonAbilityResponse)
+  override suspend fun fetchPokemonAbility(id: Int): Either<PokemonAbilityResponse, Exception> {
+    return pokemonAbilityHashMap[id]?.let { ability ->
+      ability.left()
     } ?: run {
       try {
         val response = service.getPokemonAbility(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonAbilityHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
 
-  override suspend fun fetchPokemonMove(id: Int): ApiResult<PokemonMoveResponse> {
-    return pokemonMoveHashMap[id]?.let { pokemonMoveResponse ->
-      ApiResult.Success(pokemonMoveResponse)
+  override suspend fun fetchPokemonMove(id: Int): Either<PokemonMoveResponse, Exception> {
+    return pokemonMoveHashMap[id]?.let { move ->
+      move.left()
     } ?: run {
       try {
         val response = service.getPokemonMove(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           pokemonMoveHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }
 
   override suspend fun loadPokemonColor() {
     when (val result = fetchPokemonColorList()) {
-      is ApiResult.Success -> {
+      is Either.Left -> {
         result.value.results.forEach { pokemonColor ->
           val splits = pokemonColor.url.split("/")
           scope.launch {
             val colorId = splits[splits.count() - 2].toInt()
             when (val detailResult = fetchPokemonColorDetail(colorId)) {
-              is ApiResult.Success -> {
+              is Either.Left -> {
                 pokemonColorHashMap[colorId] = detailResult.value
               }
-              is ApiResult.Error -> {
 
-              }
+              is Either.Right -> {}
             }
           }
         }
       }
 
-      is ApiResult.Error -> {
-
-      }
+      is Either.Right -> {}
     }
   }
 
-  override suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse> {
-    return evolutionChainHashMap[id]?.let { response ->
-      ApiResult.Success(response)
+  override suspend fun fetchEvolutionChain(id: Int): Either<EvolutionChainResponse, Exception> {
+    return evolutionChainHashMap[id]?.let { chain ->
+      chain.left()
     } ?: run {
       try {
         val response = service.getEvolutionChain(id)
         val body = response.body()
         if (body != null && response.isSuccessful) {
           evolutionChainHashMap[id] = body
-          ApiResult.Success(body)
+          body.left()
         } else {
-          ApiResult.Error()
+          Exception(response.message()).right()
         }
       } catch (e: Exception) {
-        ApiResult.Error(e)
+        e.right()
       }
     }
   }

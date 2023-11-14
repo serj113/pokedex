@@ -65,7 +65,8 @@ class PokemonListViewModel @Inject constructor(
         )
       }
       when (val result = useCase(_viewState.value.page)) {
-        is ApiResult.Success -> {
+
+        is arrow.core.Either.Left -> {
           _viewState.update { viewState ->
             viewState.copy(
               pokemonList = viewState.pokemonList.plus(result.value.results),
@@ -76,7 +77,7 @@ class PokemonListViewModel @Inject constructor(
           bulkFetchColor(result.value.results)
         }
 
-        is ApiResult.Error -> {
+        is arrow.core.Either.Right -> {
 
         }
       }

@@ -1,8 +1,8 @@
 package com.serj113.pokedex.core.data.repository
 
+import arrow.core.Either
 import com.serj113.pokedex.core.data.service.PokemonService
 import com.serj113.pokedex.core.domain.repository.PokemonRepository
-import com.serj113.pokedex.core.model.ApiResult
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
 import com.serj113.pokedex.core.model.PokemonColorListResponse
@@ -47,7 +47,7 @@ class PokemonRepositoryTest : BaseTest() {
       limit = 5,
     )
 
-    (serviceResponse as? ApiResult.Success)?.value?.count shouldBe response.count
+    (serviceResponse as? Either.Left<PokemonListResponse>)?.value?.count shouldBe response.count
   }
 
   @Test
@@ -57,7 +57,7 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonDetail(1)
 
-    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? Either.Left<PokemonDetailResponse>)?.value?.id shouldBe response.id
   }
 
   @Test
@@ -67,7 +67,7 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonColorList()
 
-    (serviceResponse as? ApiResult.Success)?.value?.count shouldBe response.count
+    (serviceResponse as? Either.Left<PokemonColorListResponse>)?.value?.count shouldBe response.count
   }
 
   @Test
@@ -77,7 +77,7 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonColorDetail(1)
 
-    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? Either.Left<PokemonColorDetailResponse>)?.value?.id shouldBe response.id
   }
 
   @Test
@@ -87,7 +87,7 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonSpecies(1)
 
-    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? Either.Left<PokemonSpeciesResponse>)?.value?.id shouldBe response.id
   }
 
   @Test
@@ -97,7 +97,7 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonAbility(1)
 
-    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? Either.Left<PokemonAbilityResponse>)?.value?.id shouldBe response.id
   }
 
   @Test
@@ -107,6 +107,6 @@ class PokemonRepositoryTest : BaseTest() {
 
     val serviceResponse = repository.fetchPokemonMove(1)
 
-    (serviceResponse as? ApiResult.Success)?.value?.id shouldBe response.id
+    (serviceResponse as? Either.Left<PokemonMoveResponse>)?.value?.id shouldBe response.id
   }
 }

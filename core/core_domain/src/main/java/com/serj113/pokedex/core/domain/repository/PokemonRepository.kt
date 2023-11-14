@@ -1,6 +1,6 @@
 package com.serj113.pokedex.core.domain.repository
 
-import com.serj113.pokedex.core.model.ApiResult
+import arrow.core.Either
 import com.serj113.pokedex.core.model.EvolutionChainResponse
 import com.serj113.pokedex.core.model.PokemonAbilityResponse
 import com.serj113.pokedex.core.model.PokemonColorDetailResponse
@@ -11,21 +11,22 @@ import com.serj113.pokedex.core.model.PokemonMoveResponse
 import com.serj113.pokedex.core.model.PokemonSpeciesResponse
 
 interface PokemonRepository {
-  suspend fun fetchPokemonList(offset: Int?, limit: Int?): ApiResult<PokemonListResponse>
 
-  suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailResponse>
+  suspend fun fetchPokemonList(offset: Int?, limit: Int?): Either<PokemonListResponse, Exception>
 
-  suspend fun fetchPokemonColorList(): ApiResult<PokemonColorListResponse>
+  suspend fun fetchPokemonDetail(id: Int): Either<PokemonDetailResponse, Exception>
 
-  suspend fun fetchPokemonColorDetail(id: Int): ApiResult<PokemonColorDetailResponse>
+  suspend fun fetchPokemonColorList(): Either<PokemonColorListResponse, Exception>
 
-  suspend fun fetchPokemonSpecies(id: Int): ApiResult<PokemonSpeciesResponse>
+  suspend fun fetchPokemonColorDetail(id: Int): Either<PokemonColorDetailResponse, Exception>
 
-  suspend fun fetchPokemonAbility(id: Int): ApiResult<PokemonAbilityResponse>
+  suspend fun fetchPokemonSpecies(id: Int): Either<PokemonSpeciesResponse, Exception>
 
-  suspend fun fetchPokemonMove(id: Int): ApiResult<PokemonMoveResponse>
+  suspend fun fetchPokemonAbility(id: Int): Either<PokemonAbilityResponse, Exception>
+
+  suspend fun fetchPokemonMove(id: Int): Either<PokemonMoveResponse, Exception>
 
   suspend fun loadPokemonColor()
 
-  suspend fun fetchEvolutionChain(id: Int): ApiResult<EvolutionChainResponse>
+  suspend fun fetchEvolutionChain(id: Int): Either<EvolutionChainResponse, Exception>
 }

@@ -1,6 +1,6 @@
 package com.serj113.pokedex.core.domain.usecase
 
-import com.serj113.pokedex.core.model.ApiResult
+import arrow.core.Either
 import com.serj113.pokedex.core.model.PokemonListResponse
 
 interface GetPokemonListUseCase {
@@ -8,5 +8,5 @@ interface GetPokemonListUseCase {
     const val LIMIT = 20
   }
 
-  suspend operator fun invoke(page: Int?): ApiResult<PokemonListResponse>
+  suspend operator fun invoke(page: Int?): Either<PokemonListResponse, Exception>
 }

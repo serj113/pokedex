@@ -1,24 +1,20 @@
 package com.serj113.pokedex.core.domain.di
 
-import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
 import com.serj113.pokedex.core.domain.usecase.GetAbilitiesUseCase
-import com.serj113.pokedex.core.domain.usecase.GetColorDetailUseCase
-import com.serj113.pokedex.core.domain.usecase.GetColorListUseCase
 import com.serj113.pokedex.core.domain.usecase.GetColorWithIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetColorWithSpeciesIdUseCase
+import com.serj113.pokedex.core.domain.usecase.GetEvolutionChainUseCase
+import com.serj113.pokedex.core.domain.usecase.GetMovesWithIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonDetailUseCase
 import com.serj113.pokedex.core.domain.usecase.GetPokemonListUseCase
-import com.serj113.pokedex.core.domain.usecase.GetMovesWithIdUseCase
 import com.serj113.pokedex.core.domain.usecase.GetSpeciesUseCase
-import com.serj113.pokedex.core.domain.usecase.impl.GetEvolutionChainUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetAbilitiesUseCaseImpl
-import com.serj113.pokedex.core.domain.usecase.impl.GetColorDetailUseCaseImpl
-import com.serj113.pokedex.core.domain.usecase.impl.GetColorListUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetColorWithIdUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetColorWithSpeciesIdUseCaseImpl
+import com.serj113.pokedex.core.domain.usecase.impl.GetEvolutionChainUseCaseImpl
+import com.serj113.pokedex.core.domain.usecase.impl.GetMovesWithIdUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonDetailUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetPokemonListUseCaseImpl
-import com.serj113.pokedex.core.domain.usecase.impl.GetMovesWithIdUseCaseImpl
 import com.serj113.pokedex.core.domain.usecase.impl.GetSpeciesUseCaseImpl
 import dagger.Binds
 import dagger.Module
@@ -41,18 +37,6 @@ abstract class UseCaseModule {
   internal abstract fun provideGetPokemonDetailUseCase(
     getPokemonDetailUseCaseImpl: GetPokemonDetailUseCaseImpl
   ): GetPokemonDetailUseCase
-
-  @Binds
-  @Singleton
-  internal abstract fun provideGetColorListUseCase(
-    getColorListUseCaseImpl: GetColorListUseCaseImpl
-  ): GetColorListUseCase
-
-  @Binds
-  @Singleton
-  internal abstract fun provideGetColorDetailUseCase(
-    getColorDetailUseCaseImpl: GetColorDetailUseCaseImpl
-  ): GetColorDetailUseCase
 
   @Binds
   @Singleton
