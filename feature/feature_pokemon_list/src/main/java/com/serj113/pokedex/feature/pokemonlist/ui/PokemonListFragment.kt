@@ -15,20 +15,20 @@ import com.serj113.pokedex.feature.pokemonlist.data.PokemonList
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonListFragment(navController: NavHostController) {
-  val viewModel: PokemonListViewModel = hiltViewModel()
-  val viewState by viewModel.viewStateFlow.collectAsState()
-  LaunchedEffect(key1 = Unit) {
-    viewModel.uiEvent.collect { event ->
-      when(event) {
-        is PokemonList.Event.GoToDetail -> {
-          navController.navigate(PathGenerator.getPokemonDetailPath(event.pokemonId))
+    val viewModel: PokemonListViewModel = hiltViewModel()
+    val viewState by viewModel.viewStateFlow.collectAsState()
+    LaunchedEffect(key1 = Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is PokemonList.Event.GoToDetail -> {
+                    navController.navigate(PathGenerator.getPokemonDetailPath(event.pokemonId))
+                }
+            }
         }
-      }
     }
-  }
-  MaterialTheme {
-    Scaffold { _ ->
-      PokemonListScreen(viewState = viewState, viewModel = viewModel)
+    MaterialTheme {
+        Scaffold { _ ->
+            PokemonListScreen(viewState = viewState, viewModel = viewModel)
+        }
     }
-  }
 }

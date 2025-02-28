@@ -20,88 +20,90 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-  private val useCase: GetPokemonListUseCase,
-  private val pokemonColorUseCase: GetColorWithIdUseCase,
+    private val useCase: GetPokemonListUseCase,
+    private val pokemonColorUseCase: GetColorWithIdUseCase,
 ) : ViewModel(), IPokemonListViewModel {
 
-  private val _viewState = MutableStateFlow(PokemonList.ViewState())
-  val viewStateFlow: StateFlow<PokemonList.ViewState> = _viewState
+    private val _viewState = MutableStateFlow(PokemonList.ViewState())
+    val viewStateFlow: StateFlow<PokemonList.ViewState> = _viewState
 
-  private val _uiEvent = Channel<PokemonList.Event>(Channel.BUFFERED)
-  val uiEvent = _uiEvent.receiveAsFlow()
+    private val _event = MutableSharedFlow<PokemonList.Event>()
+    val event = _event.asSharedFlow()
 
-  override val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
+    override val uiAction = Channel<PokemonList.Action>(Channel.BUFFERED)
 
-  private var fetchJob: Job? = null
+    private var fetchJob: Job? = null
 
-  init {
-    uiAction.receiveAsFlow().onEach { action ->
-      onUiAction(action)
-    }.launchIn(viewModelScope)
-    fetchPokemonList()
-  }
-
-  private fun onUiAction(action: PokemonList.Action) {
-    when (action) {
-      is PokemonList.Action.OnClickItem -> {
-        _uiEvent.trySend(PokemonList.Event.GoToDetail(action.pokemonId))
-      }
-
-      PokemonList.Action.FetchNextPage -> {
+    init {
+        uiAction.receiveAsFlow().onEach { action ->
+            onUiAction(action)
+        }.launchIn(viewModelScope)
         fetchPokemonList()
-      }
     }
-  }
 
-  private fun fetchPokemonList() {
-    if (fetchJob?.isCompleted == false) return
-    fetchJob = viewModelScope.launch {
-      _viewState.update { viewState ->
-        viewState.copy(
-          isLoading = true
-        )
-      }
-      when (val result = useCase(_viewState.value.page)) {
-
-        is arrow.core.Either.Left -> {
-          _viewState.update { viewState ->
-            viewState.copy(
-              pokemonList = viewState.pokemonList.plus(result.value.results),
-              page = viewState.page + 1,
-              isLoading = false
-            )
-          }
-          bulkFetchColor(result.value.results)
-        }
-
-        is arrow.core.Either.Right -> {
-
-        }
-      }
-    }
-  }
-
-  private fun bulkFetchColor(pokemonList: List<DataItem>) {
-    pokemonList.forEach { pokemon ->
-      viewModelScope.launch {
-        val pokemonId = pokemon.getPokemonId()
-        when (val result = pokemonColorUseCase(pokemonId)) {
-          is ApiResult.Success -> {
-            _viewState.update { viewState ->
-              viewState.copy(pokemonColor = viewState.pokemonColor.apply {
-                put(pokemonId, PokemonColor.getComposeColor(result.value))
-              })
+    private fun onUiAction(action: PokemonList.Action) = viewModelScope.launch {
+        when (action) {
+            is PokemonList.Action.OnClickItem -> {
+                _event.emit(PokemonList.Event.GoToDetail(action.pokemonId))
             }
-          }
 
-          is ApiResult.Error -> {
-
-          }
+            PokemonList.Action.FetchNextPage -> {
+                fetchPokemonList()
+            }
         }
-      }
     }
-  }
+
+    private fun fetchPokemonList() {
+        if (fetchJob?.isCompleted == false) return
+        fetchJob = viewModelScope.launch {
+            _viewState.update { viewState ->
+                viewState.copy(
+                    isLoading = true
+                )
+            }
+            when (val result = useCase(_viewState.value.page)) {
+
+                is arrow.core.Either.Left -> {
+                    _viewState.update { viewState ->
+                        viewState.copy(
+                            pokemonList = viewState.pokemonList.plus(result.value.results),
+                            page = viewState.page + 1,
+                            isLoading = false
+                        )
+                    }
+                    bulkFetchColor(result.value.results)
+                }
+
+                is arrow.core.Either.Right -> {
+
+                }
+            }
+        }
+    }
+
+    private fun bulkFetchColor(pokemonList: List<DataItem>) {
+        pokemonList.forEach { pokemon ->
+            viewModelScope.launch {
+                val pokemonId = pokemon.getPokemonId()
+                when (val result = pokemonColorUseCase(pokemonId)) {
+                    is ApiResult.Success -> {
+                        _viewState.update { viewState ->
+                            viewState.copy(pokemonColor = viewState.pokemonColor.apply {
+                                put(pokemonId, PokemonColor.getComposeColor(result.value))
+                            })
+                        }
+                    }
+
+                    is ApiResult.Error -> {
+
+                    }
+                }
+            }
+        }
+    }
 }

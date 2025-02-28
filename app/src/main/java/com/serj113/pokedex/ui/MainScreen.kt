@@ -17,33 +17,33 @@ import com.serj113.pokedex.feature.pokemonlist.ui.PokemonListFragment
 
 @Composable
 fun MainScreen() {
-  Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-    val navController = rememberNavController()
-    NavHost(
-      navController = navController,
-      startDestination = Route.List.path,
-    ) {
-      composable(route = Route.List.path) {
-        PokemonListFragment(navController)
-      }
-      composable(
-        route = Route.Detail.path,
-        arguments = listOf(
-          navArgument("pokemonId") { type = NavType.IntType },
-        ),
-      ) {
-        PokemonDetailFragment(
-          onBackPress = {
-            navController.popBackStack()
-          }
-        )
-      }
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        val navController = rememberNavController()
+        NavHost(
+            navController = navController,
+            startDestination = Route.List.path,
+        ) {
+            composable(route = Route.List.path) {
+                PokemonListFragment(navController)
+            }
+            composable(
+                route = Route.Detail.path,
+                arguments = listOf(
+                    navArgument("pokemonId") { type = NavType.IntType },
+                ),
+            ) {
+                PokemonDetailFragment(
+                    onBackPress = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 fun PreviewMainScreen() {
-  MainScreen()
+    MainScreen()
 }
