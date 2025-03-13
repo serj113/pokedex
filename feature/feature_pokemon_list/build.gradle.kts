@@ -78,6 +78,6 @@ dependencies {
   testImplementation(libs.junit)
   androidTestImplementation(libs.junit.ext)
   androidTestImplementation(libs.espresso.core)
-  androidTestImplementation(libs.atest.compose.bom)
+  androidTestImplementation(platform(libs.compose.bom))
   androidTestImplementation(libs.atest.compose.junit)
 }
