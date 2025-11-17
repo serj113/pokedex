@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Shader
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.serj113.pokedex.common.presentation.ComposeColor
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getPokemonId
