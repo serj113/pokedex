@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.serj113.pokedex.core.model.DataItem
 import com.serj113.pokedex.core.model.utils.getSpriteImage
 

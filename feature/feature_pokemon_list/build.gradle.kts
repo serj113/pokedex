@@ -1,8 +1,9 @@
 plugins {
   id(libs.plugins.android.library.get().pluginId)
   id(libs.plugins.kotlin.android.get().pluginId)
-  id(libs.plugins.kotlin.kapt.get().pluginId)
+  id(libs.plugins.ksp.get().pluginId)
   id(libs.plugins.hilt.get().pluginId)
+  id(libs.plugins.compose.compiler.get().pluginId)
 }
 
 android {
@@ -53,6 +54,7 @@ dependencies {
   implementation(libs.androidx.activity)
   implementation(libs.fragmentktx)
   implementation(libs.coil)
+  implementation(libs.coil.network)
   implementation(libs.hilt.navigation.compose)
 
   // compose
@@ -68,7 +70,7 @@ dependencies {
 
   // hilt
   implementation(libs.hilt)
-  kapt(libs.hilt.kapt)
+  ksp(libs.hilt.kapt)
 
   // arrow
   implementation(libs.arrow.core)

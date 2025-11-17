@@ -1,9 +1,10 @@
 plugins {
     id(libs.plugins.android.application.get().pluginId)
     id(libs.plugins.kotlin.android.get().pluginId)
-    id(libs.plugins.kotlin.kapt.get().pluginId)
+    id(libs.plugins.ksp.get().pluginId)
     id(libs.plugins.hilt.get().pluginId)
     id(libs.plugins.navigation.safeargs.get().pluginId)
+    id(libs.plugins.compose.compiler.get().pluginId)
 }
 
 android {
@@ -80,7 +81,7 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
-    kapt(libs.hilt.kapt)
+    ksp(libs.hilt.kapt)
 
     // arrow
     implementation(libs.arrow.core)

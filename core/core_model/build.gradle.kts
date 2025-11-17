@@ -1,7 +1,7 @@
 plugins {
   id(libs.plugins.android.library.get().pluginId)
   id(libs.plugins.kotlin.android.get().pluginId)
-  id(libs.plugins.ksp.get().pluginId) version libs.versions.ksp.get()
+  id(libs.plugins.ksp.get().pluginId)
 }
 
 android {

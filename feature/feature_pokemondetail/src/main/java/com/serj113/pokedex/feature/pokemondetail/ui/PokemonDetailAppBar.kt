@@ -19,7 +19,7 @@ import kotlinx.coroutines.channels.Channel
 fun PokemonDetailAppBar(viewModel: IPokemonDetailViewModel) {
   TopAppBar(
     title = { },
-    colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent),
+    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
     navigationIcon = {
       IconButton(
         onClick = {
